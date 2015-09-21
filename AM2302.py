@@ -14,7 +14,7 @@ pin = 4
 
 humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 if temperature is not None:
-    with open('/tmp/temp', 'w') as tmp:
+    with open('/tmp/temperature', 'w') as tmp:
         tmp.write('%0.1f' % (temperature))
 if humidity is not None:
     with open('/tmp/humidity', 'w') as tmp:
