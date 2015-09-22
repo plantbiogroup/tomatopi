@@ -1,3 +1,8 @@
 #!/bin/bash
-curl -X POST -d temperature=@/tmp/temperature -d humidity=@tmp/humidity -d picture=@/tmp/tomatopi.jpg http://example.com
 
+## See AM2302.py for explanation of /tmp/measurements
+## Upload all the measurements we have collected, and remove the /tmp/measurements file
+curl -X POST --data data@/tmp/measurements http://example.com/measurements > /dev/null 2>&1 rm /tmp/measurements
+
+## Pictures???
+curl ----
