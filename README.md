@@ -45,10 +45,29 @@ curl -X POST http://example.com/desired_humidity -d humidity=82.4
 ```
  
 ### GET  /measurements
-Get the actual measurements
+Get the actual measurements.
 ```
 curl -X GET http://example.com/measurements
 ```
+
+### POST /measurements
+Upload a seriec of measurements.
+```
+curl -X GET http://example.com/measurements
+```
+
+Each measurement series is newline delimited.  Each value is space delimited.
+A series start with ISO date <space> Degree Celcius <space> Humidity in percent
+
+Example:
+```
+2015-09-23T10:24:17 26.6 38.6
+2015-09-23T10:24:17 26.6 38.6
+2015-09-23T10:24:52 26.5 38.6
+2015-09-23T10:24:58 26.5 38.6
+2015-09-23T10:25:01 26.5 38.6
+```
+
 
 ### POST /reset
 Return system to default state
