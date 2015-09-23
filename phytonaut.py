@@ -66,9 +66,10 @@ def set_measurements():
 def set_picture():
 
     # Process the picture
-    picture = request.form.get('picture')
-    with open(picture_file, 'wb') as f:
-        f.write(picture)
+    data = request.stream.read()
+    with open(picture_file, 'w') as f:
+        print request.form.get('picture').__class__.__name__
+        f.write(data)
     return 'ok'
 
 @app.route('/measurements', methods=['GET'])

@@ -1,5 +1,5 @@
 #!/bin/bash
-H=http://127.0.0.1:5000
+H=http://127.0.0.1:80
 
 echo -n "Expecting `cat desired_temperature`:   "
 curl -X GET ${H}/desired_temperature
@@ -29,9 +29,9 @@ echo
 
 echo -n "Expecting `cat desired_temperature` `cat desired_humidity`:   "
 cat<<EOF>snopp
-10 11
-12 13
-14 15
+`date +"FT%T` 10 11
+`date +"FT%T` 12 13
+`date +"FT%T` 14 15
 EOF
 curl -X POST --data-urlencode data@snopp ${H}/measurements
 echo
@@ -52,3 +52,5 @@ echo
 echo -n "Humidity: "
 cat desired_humidity
 echo
+
+curl -s -X POST --data-binary @${PWD}/test.jpg ${H}/picture
