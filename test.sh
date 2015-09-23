@@ -16,6 +16,4 @@ echo
 curl -X GET ${H}/desired_humidity
 echo
 
-
-
 # curl -X POST --data data@/tmp/measurements ${H}/measurements

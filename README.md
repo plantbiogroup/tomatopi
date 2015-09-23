@@ -22,4 +22,4 @@ sudo python tomato.py
 ## Files
 * desired_humidity -- store the last good desired humidity setting
 * desired_temperature -- store the last good desired temperature setting
-* measurements -- cumulative measurements over time.
+* measurements -- cumulative measurements over time. <temperature humidity>
