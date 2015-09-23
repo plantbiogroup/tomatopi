@@ -17,6 +17,8 @@ lastmeasurement=None
 actual_temperature=None
 actual_humidity=None
 
+picture_file="picture.jpg"
+
 ####################
 ## Reset to default
 @app.route('/reset', methods=['POST'])
@@ -49,12 +51,19 @@ def set_measurements():
     global actual_temperature
     global actual_temperature
 
+    # Process the picture
+    picture = request.form.get('picture')
+    with open(picture_file, 'w') as f:
+        f.write(data)
+
+    # Process the data
     data = request.form.get('data')
     with open(measurements_file, 'a') as f:
         f.write(data)
     t = data.splitlines()
     q = t[len(t) - 1]
     lastmeasurement,actual_temperature,actual_temperature = q.split(' ')
+
     # Return desired TEMP and HUMIDITY
     return "%0.1f %0.1f" % (desired_temperature, desired_humidity)
 

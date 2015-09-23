@@ -11,11 +11,11 @@ mkdir -p /tmp/pix
 ## -q -- quality <0 - 100>  set to 50 for small data size
 ## -n -- no preview, easier on the processor.
 ## Cheap and easy setting
-raspistill -t 0 -n -w 256 -h 256 -q 50 -o /tmp/tomatopi.jpg
+raspistill -t 0 -n -w 256 -h 256 -q 50 -o /tmp/pict.jpg
 
 ## Uncomment for high quality settings
 ## Comment out the all the other ''raspistill'' lines
 # raspistill -t 0 -n -w 1024 -h 1024 -q 100 -o /tmp/tomatopi.jpg
 
 ## Copy to the pix directory and timestamp.
-cp /tmp/tomatopi.jpg /tmp/pix/tomato${DATE}.jpg
+#cp /tmp/tomatopi.jpg /tmp/pix/tomato${DATE}.jpg
