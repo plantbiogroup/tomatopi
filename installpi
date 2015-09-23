@@ -1,0 +1,3 @@
+#!/bin/bash
+cp AM2302.py /usr/local/bin/AM2302.py
+cp uploader.sh /usr/local/bin/uploader.sh

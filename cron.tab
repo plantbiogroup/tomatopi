@@ -1,5 +1,4 @@
 PATH=/usr/local/sbin:/usr/local/bin:/home/user1/bin
 MAILTO=user1@example.com,user2@example.com
-* * * * * /usr/local/bin/AM2302.py
-* * * * * /usr/local/bin/cam.sh
-* * * * * /usr/local/bin/uploader.sh
+*/5 * * * * /usr/local/bin/AM2302.py
+30 * * * * /usr/local/bin/uploader.sh
