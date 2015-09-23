@@ -31,4 +31,4 @@ if humidity is not None:
 ## YYYY-MM-DDThh:mm:ss temperature humidity
 if temperature is not None and humidity is not None:
     with open('/tmp/measurements', 'a') as tmp:
-        tmp.write('%s	%0.1f	%0.1f\n' % (time.strftime("%FT%T"), temperature, humidity))
+        tmp.write('%s %0.1f %0.1f\n' % (time.strftime("%FT%T"), temperature, humidity))
