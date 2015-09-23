@@ -68,7 +68,6 @@ def set_picture():
     # Process the picture
     data = request.stream.read()
     with open(picture_file, 'w') as f:
-        print request.form.get('picture').__class__.__name__
         f.write(data)
     return 'ok'
 
