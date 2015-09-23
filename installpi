@@ -4,10 +4,6 @@ do
   cp $f /usr/local/bin/${f}
 done
 
-fgrep phytonat /etc/hosts && cat <<EOF
-
-"You forgot to add phytonaut to /etc/hosts."
-
-EOF
+fgrep phytonat /etc/hosts && echo "You forgot to add phytonaut to /etc/hosts."
 
 crontab -u root cron.tab
