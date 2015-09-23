@@ -53,9 +53,7 @@ def set_measurements():
     with open(measurements_file, 'a') as f:
         f.write(data)
     t = data.splitlines()
-    print "### %s ###" % (t)
     q = t[len(t) - 1]
-    print "=== %s ===" % (q)
     lastmeasurement,actual_temperature,actual_temperature = q.split(' ')
     # Return desired TEMP and HUMIDITY
     return "%0.1f %0.1f" % (desired_temperature, desired_humidity)
