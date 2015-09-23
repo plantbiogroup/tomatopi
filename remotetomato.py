@@ -13,6 +13,10 @@ desired_humidity_file="desired_humidity"
 
 measurements_file = "measurements"
 
+lastmeasurement=None
+actual_temperature=None
+actual_humidity=None
+
 ####################
 ## Reset to default
 @app.route('/reset', methods=['POST'])
@@ -41,11 +45,18 @@ def reset_to_default():
 ## Set measurements
 @app.route('/measurements', methods=['POST'])
 def set_measurements():
+    global lastmeasurement
+    global actual_temperature
+    global actual_temperature
+
     data = request.form.get('data')
     with open(measurements_file, 'a') as f:
         f.write(data)
-    t = data.splitlines()[len(data.splitlines()) - 1]
-    actual_temperature,actual_temperature = t.split(' ')
+    t = data.splitlines()
+    print "### %s ###" % (t)
+    q = t[len(t) - 1]
+    print "=== %s ===" % (q)
+    lastmeasurement,actual_temperature,actual_temperature = q.split(' ')
     # Return desired TEMP and HUMIDITY
     return "%0.1f %0.1f" % (desired_temperature, desired_humidity)
 
@@ -100,13 +111,27 @@ def set_temperature():
 ####################
 ## Get ACTUAL values
 @app.route('/actual_temp', methods=['GET'])
-def get_actual_temp():
-    return "%0.1f" % (actual_temperature)
+def get_actual_temperature():
+    try:
+        return "%0.1f" % (actual_temperature)
+    except:
+        return 'fail'
 
 @app.route('/actual_humidity', methods=['GET'])
 def get_actual_humidity():
-    return "%0.1f" % (actual_humidity)
+    try:
+        return "%0.1f" % (actual_humidity)
+    except:
+        return 'fail'
 
+@app.route('/lastmeasurement', methods=['GET'])
+def get_lastmeasurement():
+    try:
+        if lastmeasurement is not None:
+            return "%s" % (lastmeasurement)
+    except:
+        pass
+    return 'fail'
 
 ####################
 ## Main
@@ -123,4 +148,4 @@ if __name__ == '__main__':
     except:
         desired_humidity = defaulthumidity
 
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=True, host='0.0.0.0', port=80)

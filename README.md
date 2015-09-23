@@ -55,3 +55,20 @@ Return system to default state
 ```
 curl -X POST http://example.com/reset
 ```
+
+### GET /lastmeasurement
+Get the time for the last successfull measurement
+
+### GET /actual_humidity
+Get the last measured humidity
+
+### GET /actual_temperature
+Get the last measured temperature
+
+
+## CentOS installation
+Install Flask
+```
+yum install python-flask
+```
+
