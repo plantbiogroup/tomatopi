@@ -50,10 +50,16 @@ Get the actual measurements.
 curl -X GET http://example.com/measurements
 ```
 
+### POST /picture
+Upload a picture.
+```
+curl -X POST --data-binary foo@/tmp/picture http://example.com/picture
+```
+
 ### POST /measurements
 Upload a seriec of measurements.
 ```
-curl -X GET http://example.com/measurements
+curl -X POST --data-urlencode foo@/tmp/measurements http://example.com/measurements
 ```
 
 Each measurement series is newline delimited.  Each value is space delimited.

@@ -1,3 +1,4 @@
 * * * * * /usr/local/bin/AM2302.py
 */5 * * * * /usr/local/bin/cam.sh
 */5 * * * * /usr/local/bin/uploader.sh
+*/5 * * * * /usr/local/bin/pictureloader.sh

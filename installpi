@@ -1,5 +1,5 @@
 #!/bin/bash
-for f in AM2302.py uploader.sh cam.sh
+for f in AM2302.py uploader.sh cam.sh pictureloader.sh
 do
   cp $f /usr/local/bin/${f}
 done

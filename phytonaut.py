@@ -51,11 +51,6 @@ def set_measurements():
     global actual_temperature
     global actual_temperature
 
-    # Process the picture
-    picture = request.form.get('picture')
-    with open(picture_file, 'w') as f:
-        f.write(data)
-
     # Process the data
     data = request.form.get('data')
     with open(measurements_file, 'a') as f:
@@ -66,6 +61,15 @@ def set_measurements():
 
     # Return desired TEMP and HUMIDITY
     return "%0.1f %0.1f" % (desired_temperature, desired_humidity)
+
+@app.route('/picture', methods=['POST'])
+def set_picture():
+
+    # Process the picture
+    picture = request.form.get('picture')
+    with open(picture_file, 'wb') as f:
+        f.write(picture)
+    return 'ok'
 
 @app.route('/measurements', methods=['GET'])
 def get_measurements():
