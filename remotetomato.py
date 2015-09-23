@@ -3,8 +3,8 @@ from flask import request
 
 app = Flask(__name__)
 
-defaulttemp = 20
-desired_temperature = defaulttemp
+defaulttemperature = 20
+desired_temperature = defaulttemperature
 desired_temperature_file="desired_temperature"
 
 defaulthumidity = 80
@@ -14,41 +14,59 @@ desired_humidity_file="desired_humidity"
 measurements_file = "measurements"
 
 ####################
-## Set collected measurements
+## Reset to default
+@app.route('/reset', methods=['POST'])
+def reset_to_default():
+    str = 'ok'
+    try:
+        with open(measurements_file, 'w') as f:
+            f.write('')
+    except:
+        str='Measurements not reset.'
+    try:
+        desired_humidity=defaulthumidity
+        with open(desired_humidity_file, 'w') as f:
+            f.write('%0.1f' % (defaulthumidity))
+    except:
+        str+=' Humidity not reset'
+    try:
+        desired_temperature=defaulttemperature
+        with open(desired_temperature_file, 'w') as f:
+            f.write('%0.1f' % (defaulttemperature))
+    except:
+        str+=' Temperature not reset'
+    return str
+
+####################
+## Set measurements
 @app.route('/measurements', methods=['POST'])
-def tomato():
+def set_measurements():
     data = request.form.get('data')
     with open(measurements_file, 'a') as f:
         f.write(data)
     t = data.splitlines()[len(data.splitlines()) - 1]
     actual_temperature,actual_temperature = t.split(' ')
     # Return desired TEMP and HUMIDITY
-    return "%0.1f %0.1f" % (temp, humidity)
+    return "%0.1f %0.1f" % (desired_temperature, desired_humidity)
+
+@app.route('/measurements', methods=['GET'])
+def get_measurements():
+    with open(measurements_file, 'r') as f:
+        str=f.read()
+    return "%s" % (str)
 
 ####################
 ## Get DESIRED values
 @app.route('/desired_temperature', methods=['GET'])
-def settemp():
-    global desired_temperature
-    try:
-        desired_temperature = float(request.form.get('temp'))
-        str = "%0.1f" % (desired_temperature)
-    except:
-        return "Invalid data"
-    with open(desired_temperature_file, 'w') as f:
-        f.write(str)
+def get_desired_temp():
+    with open(desired_temperature_file, 'r') as f:
+        str = f.read()
     return str
 
 @app.route('/desired_humidity', methods=['GET'])
-def settemp():
-    global desired_humidity
-    try:
-        desired_humidity = float(request.form.get('temp'))
-        str = "%0.1f" % (desired_humidity)
-    except:
-        return "Invalid data"
-    with open(desired_humidity_file, 'w') as f:
-        f.write(str)
+def get_desired_humidity():
+    with open(desired_humidity_file, 'r') as f:
+        str = f.read()
     return str
 
 
@@ -56,9 +74,9 @@ def settemp():
 ## Set DESIRED values
 @app.route('/desired_humidity', methods=['POST'])
 def set_humidity():
-    global humidity
+    global desired_humidity
     try:
-        humidity = float(request.form.get('humidity'))
+        desired_humidity = float(request.form.get('humidity'))
         str = "%0.1f" % (desired_humidity)
     except:
         return "Invalid data"
@@ -68,9 +86,9 @@ def set_humidity():
 
 @app.route('/desired_temperature', methods=['POST'])
 def set_temperature():
-    global temperature
+    global desired_temperature
     try:
-        temperature = float(request.form.get('temperature'))
+        desired_temperature = float(request.form.get('temperature'))
         str = "%0.1f" % (desired_temperature)
     except:
         return "Invalid data"
@@ -97,7 +115,7 @@ if __name__ == '__main__':
         with open(desired_temperature_file, 'r') as f:
             desired_temperature=float(f.read())
     except:
-        desired_temperature = defaulttemp
+        desired_temperature = defaulttemperature
 
     try:
         with open(desired_humidity_file, 'r') as f:
