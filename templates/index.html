@@ -5,12 +5,12 @@
 
   <table>
     <caption class="values">Vals</caption>
-    <tr><td>default temperature</td><td>defaulttemperature</td></tr>
-    <tr><td>desired temperature</td><td>desired_temperature</td></tr>
-    <tr><td>default humidity</td><td>defaulthumidity</td></tr>
-    <tr><td>desired humidity</td><td>desired_humidity</td></tr>
-    <tr><td>actual temperature</td><td>actual_temperature</td></tr>
-    <tr><td>actual humidity</td><td>actual_humidity</td></tr>
+    <tr><td>default temperature</td><td>{{ defaulttemperature }}</td></tr>
+    <tr><td>desired temperature</td><td>{{ desired_temperature }}</td></tr>
+    <tr><td>default humidity</td><td>{{ defaulthumidity }}</td></tr>
+    <tr><td>desired humidity</td><td>{{ desired_humidity }}</td></tr>
+    <tr><td>actual temperature</td><td>{{ actual_temperature }}</td></tr>
+    <tr><td>actual humidity</td><td>{{ actual_humidity }}</td></tr>
   </table>
 
   <img src=href="{{ url_for('static', filename='picture.jpg') }}">
