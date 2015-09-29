@@ -182,7 +182,7 @@ def index():
                            desired_humidity=desired_humidity,
                            actual_temperature=actual_temperature,
                            actual_humidity=actual_humidity,
-                           ifconfig=ifconfig_data)
+                           ifconfig_data=ifconfig_data)
 
 
 ####################
