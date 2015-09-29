@@ -25,18 +25,19 @@ actual_temperature=None
 actual_humidity=None
 
 picture_file="static/picture.jpg"
-
+ifconfig_data=None
 
 ####################
 ## Get the current local subnet
 @app.route('/ifconfig', methods=['POST'])
 def set_ifconfig():
     # Process the data
-    data = request.form.get('ifconfig')
-    print "IfConfig -> %s" % (data)
+    global ifconfig_data
+    ifconfig_data = request.form.get('ifconfig')
+    print "IfConfig -> %s" % (ifconfig_data)
     try:
         with open(ifconfig_file, 'a') as f:
-            f.write(data)
+            f.write(ifconfig_data)
     except:
         pass
     return 'ok'
@@ -180,7 +181,8 @@ def index():
                            defaulthumidity=defaulthumidity,
                            desired_humidity=desired_humidity,
                            actual_temperature=actual_temperature,
-                           actual_humidity=actual_humidity)
+                           actual_humidity=actual_humidity,
+                           ifconfig=ifconfig_data)
 
 
 ####################
