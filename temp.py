@@ -11,7 +11,7 @@ sensor = Adafruit_DHT.AM2302
 
 ##  The pin is the GPIO pin number not the
 ##  number of the pin on the 40-pin head
-pin = 4
+pin = 16
 
 ## The /tmp/temperature is the file we use to register the latest
 ## temperature measurement.  The file /tmp/humidity is the file we use

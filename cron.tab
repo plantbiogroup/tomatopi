@@ -1,5 +1,6 @@
-* * * * * /usr/local/bin/AM2302.py
-*/5 * * * * /usr/local/bin/cam.sh
-*/5 * * * * /usr/local/bin/uploader.sh
-*/5 * * * * /usr/local/bin/camloader.sh
-*/5 * * * * /usr/local/bin/myifconfig.sh
+* * * * * /usr/local/bin/temp.py
+* * * * * /usr/local/bin/tempuploader.sh
+* * * * * /usr/local/bin/cam.sh
+* * * * * /usr/local/bin/camuploader.sh
+* * * * * /usr/local/bin/ifconfig.sh
+* * * * * /usr/local/bin/ifconfiguploader.sh
