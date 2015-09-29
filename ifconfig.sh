@@ -1,2 +1,2 @@
 #!/bin/bash
-ifconfig > /tmp/ifconfig
+/usr/sbin/ifconfig > /tmp/ifconfig

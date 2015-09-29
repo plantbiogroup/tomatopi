@@ -65,8 +65,9 @@ def set_measurements():
     global actual_temperature
 
     # Process the data
+    data = request.form.get('data')
+    print "Data -> %s" % (data)
     try:
-        data = request.form.get('data')
         with open(measurements_file, 'a') as f:
             f.write(data)
         t = data.splitlines()
