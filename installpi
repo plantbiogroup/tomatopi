@@ -1,5 +1,5 @@
 #!/bin/bash
-for f in temp.py tempuploader.sh cam.sh camloader.sh ifconfig.sh ifconfiguploader.sh
+for f in temp.py tempuploader.sh cam.sh camuploader.sh ifconfig.sh ifconfiguploader.sh
 do
   cp $f /usr/local/bin/${f}
 done
