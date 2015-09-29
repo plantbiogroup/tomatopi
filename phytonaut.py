@@ -12,12 +12,25 @@ desired_humidity=defaulthumidity
 desired_humidity_file="desired_humidity"
 
 measurements_file = "measurements"
+ifconfig_file = "ifconfig"
 
 lastmeasurement=None
 actual_temperature=None
 actual_humidity=None
 
 picture_file="picture.jpg"
+
+
+####################
+## Get the current local subnet
+@app.route('/ifconfig', methods=['POST'])
+def set_ifconfig():
+    # Process the data
+    data = request.form.get('ifconfig')
+    with open(ifconfig_file, 'a') as f:
+        f.write(data)
+    return 'ok'
+
 
 ####################
 ## Reset to default
