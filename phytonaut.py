@@ -65,13 +65,15 @@ def set_measurements():
     global actual_temperature
 
     # Process the data
-    data = request.form.get('data')
-    with open(measurements_file, 'a') as f:
-        f.write(data)
-    t = data.splitlines()
-    q = t[len(t) - 1]
-    lastmeasurement,actual_temperature,actual_temperature = q.split(' ')
-
+    try:
+        data = request.form.get('data')
+        with open(measurements_file, 'a') as f:
+            f.write(data)
+        t = data.splitlines()
+        q = t[len(t) - 1]
+        lastmeasurement,actual_temperature,actual_temperature = q.split(' ')
+    except:
+        print "measurement -> %s" % (data)
     # Return desired TEMP and HUMIDITY
     return "%0.1f %0.1f" % (desired_temperature, desired_humidity)
 
