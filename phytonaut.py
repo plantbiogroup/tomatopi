@@ -27,8 +27,12 @@ picture_file="picture.jpg"
 def set_ifconfig():
     # Process the data
     data = request.form.get('ifconfig')
-    with open(ifconfig_file, 'a') as f:
-        f.write(data)
+    print "IfConfig -> %s" % (data)
+    try:
+        with open(ifconfig_file, 'a') as f:
+            f.write(data)
+    except:
+        pass
     return 'ok'
 
 
