@@ -11,7 +11,7 @@ mkdir -p /tmp/pix
 ## -q -- quality <0 - 100>  set to 50 for small data size
 ## -n -- no preview, easier on the processor.
 ## Cheap and easy setting
-raspistill -t 1 -n -w 256 -h 256 -q 50 -o /tmp/pict.jpg
+raspistill -vf -hf -t 1 -n -w 256 -h 256 -q 50 -o /tmp/pict.jpg
 
 ## Uncomment for high quality settings
 ## Comment out the all the other ''raspistill'' lines
