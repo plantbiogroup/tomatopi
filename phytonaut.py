@@ -1,5 +1,11 @@
 from flask import Flask
 from flask import request
+from flask import render_template
+from flask import session
+from flask import g
+from flask import redirect
+from flask import url_for
+from flask import flash
 
 app = Flask(__name__)
 
@@ -18,7 +24,7 @@ lastmeasurement=None
 actual_temperature=None
 actual_humidity=None
 
-picture_file="picture.jpg"
+picture_file="static/picture.jpg"
 
 
 ####################
@@ -163,6 +169,19 @@ def get_lastmeasurement():
     except:
         pass
     return 'fail'
+
+####################
+## Main
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html',
+                           defaulttemperature=defaulttemperature,
+                           desired_temperature=desired_temperature,
+                           defaulthumidity=defaulthumidity,
+                           desired_humidity=desired_humidity,
+                           actual_temperature=actual_temperature,
+                           actual_humidity=actual_humidity)
+
 
 ####################
 ## Main
