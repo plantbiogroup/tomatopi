@@ -31,8 +31,8 @@ ifconfig_data=None
 ## Get the current local subnet
 @app.route('/ifconfig', methods=['POST'])
 def set_ifconfig():
-    # Process the data
     global ifconfig_data
+    # Process the data
     ifconfig_data = request.form.get('ifconfig')
     print "IfConfig -> %s" % (ifconfig_data)
     try:
