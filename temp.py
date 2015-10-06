@@ -29,6 +29,17 @@ if humidity is not None:
 ## This stores the latest series of temperature measurements we have.
 ## The format is:
 ## YYYY-MM-DDThh:mm:ss temperature humidity
+
+
+relay1=1
+relay2=0
+relay3=1
+relay4=0
+relay5=1
+relay6=0
+relay7=1
+relay8=0
 if temperature is not None and humidity is not None:
     with open('/tmp/measurements', 'a') as tmp:
-        tmp.write('%s %0.1f %0.1f\n' % (time.strftime("%FT%T"), temperature, humidity))
+        tmp.write('%s,%0.1f,%0.1f,%d,%d,%d,%d,%d,%d,%d,%d\n' %
+                  (time.strftime("%FT%T"), temperature, humidity, relay1, relay2, relay3, relay4, relay5, relay6, relay7, relay8))

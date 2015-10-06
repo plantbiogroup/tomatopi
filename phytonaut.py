@@ -1,3 +1,5 @@
+#!/bin/python
+
 from flask import Flask
 from flask import request
 from flask import render_template
@@ -6,6 +8,8 @@ from flask import g
 from flask import redirect
 from flask import url_for
 from flask import flash
+import os.path
+import os
 
 app = Flask(__name__)
 
@@ -24,24 +28,17 @@ lastmeasurement=None
 actual_temperature=None
 actual_humidity=None
 
-picture_file="static/picture.jpg"
+picture_file="data/picture.jpg"
 ifconfig_data=None
 
-####################
-## Get the current local subnet
-@app.route('/ifconfig', methods=['POST'])
-def set_ifconfig():
-    global ifconfig_data
-    # Process the data
-    ifconfig_data = request.form.get('ifconfig')
-    print "IfConfig -> %s" % (ifconfig_data)
-    try:
-        with open(ifconfig_file, 'a') as f:
-            f.write(ifconfig_data)
-    except:
-        pass
-    return 'ok'
-
+relay1=0
+relay2=0
+relay3=0
+relay4=0
+relay5=0
+relay6=0
+relay7=0
+relay8=0
 
 ####################
 ## Reset to default
@@ -74,6 +71,15 @@ def set_measurements():
     global lastmeasurement
     global actual_temperature
     global actual_temperature
+    global ifconfig_data
+    global relay1
+    global relay2
+    global relay3
+    global relay4
+    global relay5
+    global relay6
+    global relay7
+    global relay8
 
     # Process the data
     data = request.form.get('data')
@@ -83,9 +89,18 @@ def set_measurements():
             f.write(data)
         t = data.splitlines()
         q = t[len(t) - 1]
-        lastmeasurement,actual_temperature,actual_temperature = q.split(' ')
+        lastmeasurement, actual_temperature, actual_temperature, relay1, relay2, relay3, relay4, relay5, relay6, relay7, relay8 = q.split(',')
     except:
         print "measurement -> %s" % (data)
+
+    ifconfig_data = request.form.get('ifconfig')
+    print "IfConfig -> %s" % (ifconfig_data)
+    try:
+        with open(ifconfig_file, 'a') as f:
+            f.write(ifconfig_data)
+    except:
+        pass
+
     # Return desired TEMP and HUMIDITY
     return "%0.1f %0.1f" % (desired_temperature, desired_humidity)
 
@@ -175,6 +190,10 @@ def get_lastmeasurement():
 ## Main
 @app.route('/', methods=['GET'])
 def index():
+    if os.path.isfile("static/picture.jpg") and os.stat("static/picture.jpg").st_size != 0:
+        file = "/static/picture.jpg"
+    else:
+        file = "/static/default.png"
     return render_template('index.html',
                            defaulttemperature=defaulttemperature,
                            desired_temperature=desired_temperature,
@@ -182,7 +201,16 @@ def index():
                            desired_humidity=desired_humidity,
                            actual_temperature=actual_temperature,
                            actual_humidity=actual_humidity,
-                           ifconfig_data=ifconfig_data)
+                           ifconfig_data=ifconfig_data,
+                           file=file,
+                           relay1=relay1,
+                           relay2=relay2,
+                           relay3=relay3,
+                           relay4=relay4,
+                           relay5=relay5,
+                           relay6=relay6,
+                           relay7=relay7,
+                           relay8=relay8)
 
 
 ####################

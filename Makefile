@@ -5,6 +5,6 @@ test: reset
 	./test.sh
 
 reset:
-	echo -n 25.5 > desired_temperature
-	echo -n 80.0 > desired_humidity
-	echo -n > measurements
+	echo -n 25.5 > data/desired_temperature
+	echo -n 80.0 > data/desired_humidity
+	echo -n > data/measurements

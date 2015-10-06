@@ -1,6 +1,4 @@
 * * * * * /usr/local/bin/temp.py
-* * * * * /usr/local/bin/tempuploader.sh
+* * * * * /usr/local/bin/tempuploader.py
 * * * * * /usr/local/bin/cam.sh
 * * * * * /usr/local/bin/camuploader.sh
-* * * * * /usr/local/bin/ifconfig.sh
-* * * * * /usr/local/bin/ifconfiguploader.sh

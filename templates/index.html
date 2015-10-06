@@ -3,17 +3,51 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
-  <table>
-    <caption class="values">Vals</caption>
-    <tr><td>default temperature</td><td>{{ defaulttemperature }}</td></tr>
-    <tr><td>desired temperature</td><td>{{ desired_temperature }}</td></tr>
-    <tr><td>default humidity</td><td>{{ defaulthumidity }}</td></tr>
-    <tr><td>desired humidity</td><td>{{ desired_humidity }}</td></tr>
-    <tr><td>actual temperature</td><td>{{ actual_temperature }}</td></tr>
-    <tr><td>actual humidity</td><td>{{ actual_humidity }}</td></tr>
+  <table class="ambient">
+    <caption>Ambient Values</caption>
+    <tr>
+      <th></th>
+      <th>default</th>
+      <th>desired</th>
+      <th>actual</th>
+    </tr>
+    <tr>
+      <td>temperature</td>
+      <td>{{ defaulttemperature }}</td>
+      <td>{{ desired_temperature }}</td>
+      <td>{{ actual_temperature }}</td>
+    </tr>
+    <tr class="alt">
+      <td>humidity</td>
+      <td>{{ defaulthumidity }}</td>
+      <td>{{ desired_humidity }}</td>
+      <td>{{ actual_humidity }}</td>
+    </tr>
+    <tr>
+      <td>CO2ppm</td>
+      <td>{{ 33 }}</td>
+      <td>{{ 44 }}</td>
+      <td>{{ 55 }}</td>
+    </tr>
   </table>
 
-  <img src="static/picture.jpg">
+  <table class="ambient">
+    <caption class="relays">Relays</caption>
+    <tr>
+      <th></th>
+      <th>value</th>
+    </tr>
+    <tr><td>relay1</td><td>{{ relay1 }}</td></tr>
+    <tr><td>relay2</td><td>{{ relay2 }}</td></tr>
+    <tr><td>relay3</td><td>{{ relay3 }}</td></tr>
+    <tr><td>relay4</td><td>{{ relay4 }}</td></tr>
+    <tr><td>relay5</td><td>{{ relay5 }}</td></tr>
+    <tr><td>relay6</td><td>{{ relay6 }}</td></tr>
+    <tr><td>relay7</td><td>{{ relay7 }}</td></tr>
+    <tr><td>relay8</td><td>{{ relay8 }}</td></tr>
+  </table>
+
+  <img src={{ file }}>
 
   <pre>
     {{ ifconfig_data }}
