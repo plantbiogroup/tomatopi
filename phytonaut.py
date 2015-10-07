@@ -22,13 +22,13 @@ desired_humidity=defaulthumidity
 desired_humidity_file="desired_humidity"
 
 measurements_file = "measurements"
-ifconfig_file = "ifconfig"
+ifconfig_file = "static/ifconfig"
 
 lastmeasurement=None
 actual_temperature=None
 actual_humidity=None
 
-picture_file="data/picture.jpg"
+picture_file="static/picture.jpg"
 ifconfig_data=None
 
 relay1=0
@@ -96,7 +96,7 @@ def set_measurements():
     ifconfig_data = request.form.get('ifconfig')
     print "IfConfig -> %s" % (ifconfig_data)
     try:
-        with open(ifconfig_file, 'a') as f:
+        with open(ifconfig_file, 'w') as f:
             f.write(ifconfig_data)
     except:
         pass
