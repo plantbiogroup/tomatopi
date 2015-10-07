@@ -11,12 +11,19 @@ import os
 
 outbuf = StringIO.StringIO()
 
+
 ## Get the data collected so far
-with open('/tmp/measurements', 'r') as f:
-    buf = f.read()
+try:
+    with open('/tmp/measurements', 'r') as f:
+        buf = f.read()
+except:
+    pass
 
 ## Get the ifconfig for ease of use
-ifconfig=os.popen('/sbin/ifconfig').read()
+try:
+    ifconfig=os.popen('/sbin/ifconfig').read()
+except:
+    pass
 
 field = {'data': buf,
          'ifconfig': ifconfig}
