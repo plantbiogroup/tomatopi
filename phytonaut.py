@@ -82,9 +82,9 @@ def set_measurements():
     global relay8
 
     # Process the data
-    data = request.form.get('data')
-    print "Data -> %s" % (data)
     try:
+        data = request.form.get('data')
+        print "Data -> %s" % (data)
         with open(measurements_file, 'a') as f:
             f.write(data)
         t = data.splitlines()
@@ -93,9 +93,9 @@ def set_measurements():
     except:
         print "measurement -> %s" % (data)
 
-    ifconfig_data = request.form.get('ifconfig')
-    print "IfConfig -> %s" % (ifconfig_data)
     try:
+        ifconfig_data = request.form.get('ifconfig')
+        print "IfConfig -> %s" % (ifconfig_data)
         with open(ifconfig_file, 'w') as f:
             f.write(ifconfig_data)
     except:

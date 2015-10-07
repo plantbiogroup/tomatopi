@@ -11,22 +11,22 @@ import os
 
 outbuf = StringIO.StringIO()
 
+field = {}
 
 ## Get the data collected so far
 try:
     with open('/tmp/measurements', 'r') as f:
         buf = f.read()
+        field['data']= buf
 except:
     pass
 
 ## Get the ifconfig for ease of use
 try:
     ifconfig=os.popen('/sbin/ifconfig').read()
+    field['ifconfig'] = ifconfig
 except:
     pass
-
-field = {'data': buf,
-         'ifconfig': ifconfig}
 
 c = pycurl.Curl()
 c.setopt(c.URL, 'http://phytonaut/measurements')
