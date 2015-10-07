@@ -19,7 +19,7 @@ with open('/tmp/measurements', 'r') as f:
 ifconfig=os.popen('/sbin/ifconfig').read()
 
 field = {'data': buf,
-         'ifconfig'=ifconfig}
+         'ifconfig': ifconfig}
 
 c = pycurl.Curl()
 c.setopt(c.URL, 'http://phytonaut/measurements')
