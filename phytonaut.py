@@ -101,8 +101,75 @@ def set_measurements():
     except:
         pass
 
+    desired_relay1='0'
+    try:
+        with open('data/desired_relay1', 'r') as f:
+            desired_relay1=f.read()
+    except:
+        pass
+
+    desired_relay2='0'
+    try:
+        with open('data/desired_relay2', 'r') as f:
+            desired_relay2=f.read()
+    except:
+        pass
+
+    desired_relay3='0'
+    try:
+        with open('data/desired_relay3', 'r') as f:
+            desired_relay3=f.read()
+    except:
+        pass
+
+    desired_relay4='0'
+    try:
+        with open('data/desired_relay4', 'r') as f:
+            desired_relay4=f.read()
+    except:
+        pass
+
+    desired_relay5='0'
+    try:
+        with open('data/desired_relay5', 'r') as f:
+            desired_relay5=f.read()
+    except:
+        pass
+
+    desired_relay6='0'
+    try:
+        with open('data/desired_relay6', 'r') as f:
+            desired_relay6=f.read()
+    except:
+        pass
+
+    desired_relay7='0'
+    try:
+        with open('data/desired_relay7', 'r') as f:
+            desired_relay7=f.read()
+    except:
+        pass
+
+    desired_relay8='0'
+    try:
+        with open('data/desired_relay8', 'r') as f:
+            desired_relay8=f.read()
+    except:
+        pass
+
+
     # Return desired TEMP and HUMIDITY
-    return "%0.1f %0.1f" % (desired_temperature, desired_humidity)
+    return "%0.1f %0.1f %s %s %s %s %s %s %s %s" % (desired_temperature,
+                                                    desired_humidity,
+                                                    desired_relay1,
+                                                    desired_relay2,
+                                                    desired_relay3,
+                                                    desired_relay4,
+                                                    desired_relay5,
+                                                    desired_relay6,
+                                                    desired_relay7,
+                                                    desired_relay8
+    )
 
 @app.route('/picture', methods=['POST'])
 def set_picture():
