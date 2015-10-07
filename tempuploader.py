@@ -1,4 +1,4 @@
-#!/bin/python
+#!/usr/bin/python
 #
 # This file works with the 'phytonaut.py file.  It uploads
 # measurements on url encoded form to the server and gets the desired
