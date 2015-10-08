@@ -6,7 +6,7 @@
   <table class="ambient">
     <caption>Ambient Values</caption>
     <tr>
-      <th></th>
+      <th>Variable</th>
       <th>default</th>
       <th>desired</th>
       <th>actual</th>
@@ -34,17 +34,12 @@
   <table class="ambient">
     <caption class="relays">Relays</caption>
     <tr>
-      <th></th>
+      <th>Relay #</th>
       <th>value</th>
     </tr>
-    <tr><td>relay1</td><td>{{ relay1 }}</td></tr>
-    <tr><td>relay2</td><td>{{ relay2 }}</td></tr>
-    <tr><td>relay3</td><td>{{ relay3 }}</td></tr>
-    <tr><td>relay4</td><td>{{ relay4 }}</td></tr>
-    <tr><td>relay5</td><td>{{ relay5 }}</td></tr>
-    <tr><td>relay6</td><td>{{ relay6 }}</td></tr>
-    <tr><td>relay7</td><td>{{ relay7 }}</td></tr>
-    <tr><td>relay8</td><td>{{ relay8 }}</td></tr>
+    {% for r in relay %}
+    <tr><td>{{ loop.index }}</td><td>{{ r }}</td></tr>
+    {% endfor %}
   </table>
 
   <img src={{ file }}>

@@ -55,6 +55,6 @@ with open('/tmp/measurements', 'w') as f:
     f.write( '' )               # Clear measurements
 
 
-for i in [1, 2, 3, 4, 5, 6, 7, 8]:
+for i in range(1,9):
     with open('desired_relay_file%d' % (i), 'w') as f:
         f.write(string[i+1])

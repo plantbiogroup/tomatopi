@@ -4,7 +4,7 @@ pinList = [12, 16, 18, 22, 32, 38, 37, 35]
 
 setpins=[]
 
-for i in [1, 2, 3, 4, 5, 6, 7, 8]:
+for i in range(1,9):
     try:
         with open('/tmp/desired_relay%d' % (i), 'r') as f:
         val=f.read()

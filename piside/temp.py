@@ -48,7 +48,7 @@ def writeout():
     ## The format is:
     ## YYYY-MM-DDThh:mm:ss temperature humidity
 
-    for i in [1, 2, 3, 4, 5, 6, 7, 8]:
+    for i in range(1,9):
         try:
             with open('/tmp/desired_relay%d' % (i), 'r') as f:
                 val=f.read()

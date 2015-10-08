@@ -31,14 +31,7 @@ actual_humidity=None
 picture_file="static/picture.jpg"
 ifconfig_data=None
 
-relay1=0
-relay2=0
-relay3=0
-relay4=0
-relay5=0
-relay6=0
-relay7=0
-relay8=0
+relay=[None]*8
 
 ####################
 ## Reset to default
@@ -72,24 +65,19 @@ def set_measurements():
     global actual_temperature
     global actual_temperature
     global ifconfig_data
-    global relay1
-    global relay2
-    global relay3
-    global relay4
-    global relay5
-    global relay6
-    global relay7
-    global relay8
+    global relay
 
     # Process the data
     try:
         data = request.form.get('data')
         print "Data -> %s" % (data)
+        # Dump data into the measurements file
         with open(measurements_file, 'a') as f:
             f.write(data)
+        # Get the latest values
         t = data.splitlines()
         q = t[len(t) - 1]
-        lastmeasurement, actual_temperature, actual_temperature, relay1, relay2, relay3, relay4, relay5, relay6, relay7, relay8 = q.split(',')
+        lastmeasurement, actual_temperature, actual_temperature, relay[1], relay[2], relay[3], relay[4], relay[5], relay[6], relay[7], relay[8] = q.split(',')
     except:
         print "measurement -> %s" % (data)
 
@@ -101,74 +89,24 @@ def set_measurements():
     except:
         pass
 
-    desired_relay1='0'
-    try:
-        with open('data/desired_relay1', 'r') as f:
-            desired_relay1=f.read()
-    except:
-        pass
-
-    desired_relay2='0'
-    try:
-        with open('data/desired_relay2', 'r') as f:
-            desired_relay2=f.read()
-    except:
-        pass
-
-    desired_relay3='0'
-    try:
-        with open('data/desired_relay3', 'r') as f:
-            desired_relay3=f.read()
-    except:
-        pass
-
-    desired_relay4='0'
-    try:
-        with open('data/desired_relay4', 'r') as f:
-            desired_relay4=f.read()
-    except:
-        pass
-
-    desired_relay5='0'
-    try:
-        with open('data/desired_relay5', 'r') as f:
-            desired_relay5=f.read()
-    except:
-        pass
-
-    desired_relay6='0'
-    try:
-        with open('data/desired_relay6', 'r') as f:
-            desired_relay6=f.read()
-    except:
-        pass
-
-    desired_relay7='0'
-    try:
-        with open('data/desired_relay7', 'r') as f:
-            desired_relay7=f.read()
-    except:
-        pass
-
-    desired_relay8='0'
-    try:
-        with open('data/desired_relay8', 'r') as f:
-            desired_relay8=f.read()
-    except:
-        pass
-
+    for i in range(1,9):
+        try:
+            with open('data/desired_relay%d' % (i), 'r') as f:
+                val[i]=f.read().strip()
+        except:
+            val[i]='off'
 
     # Return desired TEMP and HUMIDITY
     return "%0.1f %0.1f %s %s %s %s %s %s %s %s" % (desired_temperature,
                                                     desired_humidity,
-                                                    desired_relay1,
-                                                    desired_relay2,
-                                                    desired_relay3,
-                                                    desired_relay4,
-                                                    desired_relay5,
-                                                    desired_relay6,
-                                                    desired_relay7,
-                                                    desired_relay8
+                                                    val[1],
+                                                    val[2],
+                                                    val[3],
+                                                    val[4],
+                                                    val[5],
+                                                    val[6],
+                                                    val[7],
+                                                    val[8]
     )
 
 @app.route('/picture', methods=['POST'])
@@ -270,14 +208,7 @@ def index():
                            actual_humidity=actual_humidity,
                            ifconfig_data=ifconfig_data,
                            file=file,
-                           relay1=relay1,
-                           relay2=relay2,
-                           relay3=relay3,
-                           relay4=relay4,
-                           relay5=relay5,
-                           relay6=relay6,
-                           relay7=relay7,
-                           relay8=relay8)
+                           relay=relay)
 
 
 ####################
