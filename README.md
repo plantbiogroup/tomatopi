@@ -18,6 +18,12 @@ Computer controlled tomatoes with laser beams... from Mars.
 * desired_temperature -- store the last good desired temperature setting
 * measurements -- cumulative measurements over time. <temperature humidity>
 
+## Packages
+We require pycurl on the Pi.
+```
+apt-get install python-pycurl
+```
+
 ## REST Endpoints
 
 ### GET  /desired_temperature
