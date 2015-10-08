@@ -32,6 +32,7 @@ picture_file="static/picture.jpg"
 ifconfig_data=None
 
 relay=[None]*8
+val=[None]*10
 
 ####################
 ## Reset to default
@@ -63,9 +64,10 @@ def reset_to_default():
 def set_measurements():
     global lastmeasurement
     global actual_temperature
-    global actual_temperature
+    global actual_humidity
     global ifconfig_data
     global relay
+    global val
 
     # Process the data
     try:
@@ -77,7 +79,7 @@ def set_measurements():
         # Get the latest values
         t = data.splitlines()
         q = t[len(t) - 1]
-        lastmeasurement, actual_temperature, actual_temperature, relay[1], relay[2], relay[3], relay[4], relay[5], relay[6], relay[7], relay[8] = q.split(',')
+        lastmeasurement, actual_temperature, actual_humidity, relay[1], relay[2], relay[3], relay[4], relay[5], relay[6], relay[7], relay[8] = q.split(',')
     except:
         print "measurement -> %s" % (data)
 
@@ -90,6 +92,7 @@ def set_measurements():
         pass
 
     for i in range(1,9):
+        print "val %d" %(i)
         try:
             with open('data/desired_relay%d' % (i), 'r') as f:
                 val[i]=f.read().strip()

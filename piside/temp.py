@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
 import time
-import Adafruit_DHT
+import sys
 
-rel=[]
+rel=[1.0]*10
 temperature=None
 humidity=None
 
@@ -73,6 +73,11 @@ def writeout():
 
 
 if __name__ == '__main__':
-    read_temp()                 # Read the real temp
-    makeup_temp()               # Just make something up for testing.
+    # If the first arg is 'test' we fake the data
+    if len(sys.argv) > 1 and sys.argv[1] == 'test':
+        import random
+        makeup_temp()               # Just make something up for testing.
+    else:
+        import Adafruit_DHT
+        read_temp()                 # Read the real temp
     writeout()
