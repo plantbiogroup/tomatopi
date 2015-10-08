@@ -3,43 +3,76 @@
 import time
 import Adafruit_DHT
 
-##  Possible sensors
-##  Adafruit_DHT.DHT11
-##  Adafruit_DHT.DHT22
-##  Adafruit_DHT.AM2302
-sensor = Adafruit_DHT.AM2302
+rel=[]
+temperature=None
+humidity=None
 
-##  The pin is the GPIO pin number not the
-##  number of the pin on the 40-pin head
-pin = 16
+## Make an actual temp and humidity read
+def read_temp():
+    global temperature
+    global humidity
+    ##  Possible sensors
+    ##  Adafruit_DHT.DHT11
+    ##  Adafruit_DHT.DHT22
+    ##  Adafruit_DHT.AM2302
+    sensor = Adafruit_DHT.AM2302
 
-## The /tmp/temperature is the file we use to register the latest
-## temperature measurement.  The file /tmp/humidity is the file we use
-## to register the latest humidity measurement
+    ##  The pin is the GPIO pin number not the
+    ##  number of the pin on the 40-pin head
+    pin = 16
 
-humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-if temperature is not None:
-    with open('/tmp/temperature', 'w') as tmp:
-        tmp.write('%0.1f' % (temperature))
-if humidity is not None:
-    with open('/tmp/humidity', 'w') as tmp:
-        tmp.write('%0.1f' % (humidity))
+    ## The /tmp/temperature is the file we use to register the latest
+    ## temperature measurement.  The file /tmp/humidity is the file we use
+    ## to register the latest humidity measurement
 
-## Append the measurements to the /tmp/measurements file.
-## This stores the latest series of temperature measurements we have.
-## The format is:
-## YYYY-MM-DDThh:mm:ss temperature humidity
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+    if temperature is not None:
+        with open('/tmp/temperature', 'w') as tmp:
+            tmp.write('%0.1f' % (temperature))
+    if humidity is not None:
+        with open('/tmp/humidity', 'w') as tmp:
+            tmp.write('%0.1f' % (humidity))
+
+## Make up random crap for test purposes
+def makeup_temp():
+    global temperature
+    global humidity
+
+    temperature=25.0 + (random.randint(0,50) / 10.0)
+    humidity=50.0 + (random.randint(0,50) / 10.0)
+
+## Write the result of the reads
+def writeout():
+    ## Append the measurements to the /tmp/measurements file.
+    ## This stores the latest series of temperature measurements we have.
+    ## The format is:
+    ## YYYY-MM-DDThh:mm:ss temperature humidity
+
+    for i in [1, 2, 3, 4, 5, 6, 7, 8]:
+        try:
+            with open('/tmp/desired_relay%d' % (i), 'r') as f:
+                val=f.read()
+                rel[i]=int(val.strip())
+        except:
+            pass
+
+    if temperature is not None and humidity is not None:
+        with open('/tmp/measurements', 'a') as tmp:
+            tmp.write('%s,%0.1f,%0.1f,%d,%d,%d,%d,%d,%d,%d,%d\n' %
+                      (time.strftime("%FT%T"),
+                       temperature,
+                       humidity,
+                       rel[1],
+                       rel[2],
+                       rel[3],
+                       rel[4],
+                       rel[5],
+                       rel[6],
+                       rel[7],
+                       rel[8]))
 
 
-relay1=1
-relay2=0
-relay3=1
-relay4=0
-relay5=1
-relay6=0
-relay7=1
-relay8=0
-if temperature is not None and humidity is not None:
-    with open('/tmp/measurements', 'a') as tmp:
-        tmp.write('%s,%0.1f,%0.1f,%d,%d,%d,%d,%d,%d,%d,%d\n' %
-                  (time.strftime("%FT%T"), temperature, humidity, relay1, relay2, relay3, relay4, relay5, relay6, relay7, relay8))
+if __name__ == '__main__':
+    read_temp()                 # Read the real temp
+    makeup_temp()               # Just make something up for testing.
+    writeout()
