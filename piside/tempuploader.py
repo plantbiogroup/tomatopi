@@ -8,6 +8,7 @@ import pycurl
 import urllib
 import StringIO
 import os
+import sys
 
 outbuf = StringIO.StringIO()
 

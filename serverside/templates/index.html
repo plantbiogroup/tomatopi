@@ -12,22 +12,44 @@
       <th>actual</th>
     </tr>
     <tr>
+      <td>light cycle</td>
+      <td>light 18h/day</td>
+      <td>{{ desired_lightcycle }}
+	<form action="/desired_lightcycle" method="post">
+	  <input type="submit" name="lightcycle" value="inc">
+	</form>
+	<form action="/desired_lightcycle" method="post">
+	  <input type="submit" name="lightcycle" value="dec">
+	</form>
+
+      </td>
+      <td>{{ actual_temperature }}</td>
+    </tr>
+    <tr>
       <td>temperature</td>
       <td>{{ defaulttemperature }}</td>
-      <td>{{ desired_temperature }}</td>
+      <td>{{ desired_temperature }}
+	<form action="/desired_temperature" method="post">
+	  <input type="submit" name="temperature" value="inc">
+	</form>
+	<form action="/desired_temperature" method="post">
+	  <input type="submit" name="temperature" value="dec">
+	</form>
+      </td>
       <td>{{ actual_temperature }}</td>
     </tr>
     <tr class="alt">
       <td>humidity</td>
       <td>{{ defaulthumidity }}</td>
-      <td>{{ desired_humidity }}</td>
+      <td>{{ desired_humidity }}
+	<form action="/desired_humidity" method="post">
+	  <input type="submit" name="humidity" value="inc">
+	</form>
+	<form action="/desired_humidity" method="post">
+	  <input type="submit" name="humidity" value="dec">
+	</form>
+      </td>
       <td>{{ actual_humidity }}</td>
-    </tr>
-    <tr>
-      <td>CO2ppm</td>
-      <td>{{ 33 }}</td>
-      <td>{{ 44 }}</td>
-      <td>{{ 55 }}</td>
     </tr>
   </table>
 
@@ -35,11 +57,24 @@
     <caption class="relays">Relays</caption>
     <tr>
       <th>Relay #</th>
-      <th>value</th>
+      <th>Alias</th>
+      <th>Value</th>
     </tr>
-    {% for r in relay %}
-    <tr><td>{{ loop.index }}</td><td>{{ r }}</td></tr>
-    {% endfor %}
+    <tr>
+      <td>1</td>
+      <td>light</td>
+      <td>{{ relay[1] }}</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>temp</td>
+      <td>{{ relay[2] }}</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>humidity</td>
+      <td>{{ relay[3] }}</td>
+    </tr>
   </table>
 
   <img src={{ file }}>

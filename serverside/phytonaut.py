@@ -13,6 +13,10 @@ import os
 
 app = Flask(__name__)
 
+defaultlightcycle = 20
+desired_lightcycle = defaultlightcycle
+desired_lightcycle_file="desired_lightcycle"
+
 defaulttemperature = 20
 desired_temperature = defaulttemperature
 desired_temperature_file="desired_temperature"
@@ -20,6 +24,7 @@ desired_temperature_file="desired_temperature"
 defaulthumidity = 80
 desired_humidity=defaulthumidity
 desired_humidity_file="desired_humidity"
+
 
 measurements_file = "measurements"
 ifconfig_file = "static/ifconfig"
@@ -31,8 +36,8 @@ actual_humidity=None
 picture_file="static/picture.jpg"
 ifconfig_data=None
 
-relay=[None]*8
-val=[None]*10
+relay=range(1,9)
+val=range(1,10)
 
 ####################
 ## Reset to default
@@ -56,6 +61,12 @@ def reset_to_default():
             f.write('%0.1f' % (defaulttemperature))
     except:
         str+=' Temperature not reset'
+    try:
+        desired_lightcycle=defaultlightcycle
+        with open(desired_lightcycle_file, 'w') as f:
+            f.write('%0.1f' % (defaultlightcycle))
+    except:
+        str+=' Lightcycle not reset'
     return str
 
 ####################
@@ -92,12 +103,12 @@ def set_measurements():
         pass
 
     for i in range(1,9):
-        print "val %d" %(i)
         try:
             with open('data/desired_relay%d' % (i), 'r') as f:
                 val[i]=f.read().strip()
         except:
             val[i]='off'
+        print "val [%d] = %s" %(i, val[i])
 
     # Return desired TEMP and HUMIDITY
     return "%0.1f %0.1f %s %s %s %s %s %s %s %s" % (desired_temperature,
@@ -148,26 +159,43 @@ def get_desired_humidity():
 def set_humidity():
     global desired_humidity
     try:
-        desired_humidity = float(request.form.get('humidity'))
-        str = "%0.1f" % (desired_humidity)
+        if request.form.get('humidity') == 'inc':
+            desired_humidity += 1.0
+        elif request.form.get('humidity') == 'dec':
+            desired_humidity -= 1.0
+        else:
+            desired_humidity = float(request.form.get('humidity'))
     except:
-        return "Invalid data"
-    with open(desired_humidity_file, 'w') as f:
-        f.write(str)
-    return "%0.1f" % (desired_humidity)
+        pass
+    return redirect(url_for('index'))
 
 @app.route('/desired_temperature', methods=['POST'])
 def set_temperature():
     global desired_temperature
     try:
-        desired_temperature = float(request.form.get('temperature'))
-        str = "%0.1f" % (desired_temperature)
+        if request.form.get('temperature') == 'inc':
+            desired_temperature += 1.0
+        elif request.form.get('temperature') == 'dec':
+            desired_temperature -= 1.0
+        else:
+            desired_temperature = float(request.form.get('temperature'))
     except:
-        return "Invalid data"
-    with open(desired_temperature_file, 'w') as f:
-        f.write(str)
-    return "%0.1f" % (desired_temperature)
+        pass
+    return redirect(url_for('index'))
 
+@app.route('/desired_lightcycle', methods=['POST'])
+def set_lightcycle():
+    global desired_lightcycle
+    try:
+        if request.form.get('lightcycle') == 'inc':
+            desired_lightcycle += 0.5
+        elif request.form.get('lightcycle') == 'dec':
+            desired_lightcycle -= 0.5
+        else:
+            desired_lightcycle = float(request.form.get('lightcycle'))
+    except:
+        pass
+    return redirect(url_for('index'))
 
 ####################
 ## Get ACTUAL values
@@ -203,6 +231,8 @@ def index():
     else:
         file = "/static/default.png"
     return render_template('index.html',
+                           defaultlightcycle=defaultlightcycle,
+                           desired_lightcycle=desired_lightcycle,
                            defaulttemperature=defaulttemperature,
                            desired_temperature=desired_temperature,
                            defaulthumidity=defaulthumidity,
@@ -217,6 +247,12 @@ def index():
 ####################
 ## Main
 if __name__ == '__main__':
+    try:
+        with open(desired_lightcycle_file, 'r') as f:
+            desired_lightcycle=float(f.read())
+    except:
+        desired_lightcycle = defaultlightcycle
+
     try:
         with open(desired_temperature_file, 'r') as f:
             desired_temperature=float(f.read())
