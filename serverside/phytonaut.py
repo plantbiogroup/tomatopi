@@ -12,6 +12,7 @@ from flask import url_for
 import datetime
 import os
 import os.path
+import shutil
 
 app = Flask(__name__)
 
@@ -44,6 +45,7 @@ actual_temperature=None
 actual_humidity=None
 
 picture_file="static/picture.jpg"
+upload_picture_file="static/upload.jpg"
 ifconfig_data=None
 
 relay=range(1,9)
@@ -147,8 +149,9 @@ def set_picture():
 
     # Process the picture
     data = request.stream.read()
-    with open(picture_file, 'w') as f:
+    with open(upload_picture_file, 'w') as f:
         f.write(data)
+    shutil.copy(upload_picture_file, picture_file)
     return 'ok'
 
 @app.route('/measurements', methods=['GET'])
