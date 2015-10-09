@@ -3,7 +3,7 @@
     <meta http-equiv="refresh" content="30">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-
+<h1>Phytonaut</h1>
   <table class="ambient">
     <caption>Ambient Values</caption>
     <tr>
@@ -15,12 +15,11 @@
     <tr>
       <td>light on</td>
       <td>{{ defaultlight_on }}</td>
-      <td>{{ desired_light_on }}
-	<form action="/desired_light_on" method="post">
+      <td>
+	<form class="ambient" action="/desired_light_on" method="post">
 	  <input type="submit" name="light_on" value="inc">
-	</form>
-	<form action="/desired_light_on" method="post">
 	  <input type="submit" name="light_on" value="dec">
+	  {{ desired_light_on }}
 	</form>
       </td>
       <td></td>
@@ -28,41 +27,38 @@
     <tr>
       <td>light off</td>
       <td>{{ defaultlight_off }}</td>
-      <td>{{ desired_light_off }}
-	<form action="/desired_light_off" method="post">
+      <td>
+	<form class="ambient" action="/desired_light_off" method="post">
 	  <input type="submit" name="light_off" value="inc">
-	</form>
-	<form action="/desired_light_off" method="post">
 	  <input type="submit" name="light_off" value="dec">
+	  {{ desired_light_off }}
 	</form>
       </td>
       <td></td>
     </tr>
     <tr>
       <td>temperature</td>
-      <td>{{ defaulttemperature }}</td>
-      <td>{{ desired_temperature }}
-	<form action="/desired_temperature" method="post">
+      <td>{{ defaulttemperature }}&#176;C</td>
+      <td>
+	<form class="ambient" action="/desired_temperature" method="post">
 	  <input type="submit" name="temperature" value="inc">
-	</form>
-	<form action="/desired_temperature" method="post">
 	  <input type="submit" name="temperature" value="dec">
+	  {{ desired_temperature }}&#176;C
 	</form>
       </td>
-      <td>{{ actual_temperature }}</td>
+      <td>{{ actual_temperature }}&#176;C</td>
     </tr>
     <tr class="alt">
       <td>humidity</td>
-      <td>{{ defaulthumidity }}</td>
-      <td>{{ desired_humidity }}
-	<form action="/desired_humidity" method="post">
+      <td>{{ defaulthumidity }}%</td>
+      <td>
+	<form class="ambient" action="/desired_humidity" method="post">
 	  <input type="submit" name="humidity" value="inc">
-	</form>
-	<form action="/desired_humidity" method="post">
 	  <input type="submit" name="humidity" value="dec">
+	  {{ desired_humidity }}%
 	</form>
       </td>
-      <td>{{ actual_humidity }}</td>
+      <td>{{ actual_humidity }}%</td>
     </tr>
   </table>
 

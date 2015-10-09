@@ -51,8 +51,7 @@ def writeout():
     for i in range(1,9):
         try:
             with open('/tmp/desired_relay%d' % (i), 'r') as f:
-                val=f.read()
-                rel[i]=int(val.strip())
+                rel[i]=f.read().strip()
         except:
             pass
 

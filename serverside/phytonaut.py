@@ -17,6 +17,7 @@ app = Flask(__name__)
 
 tdelta = datetime.timedelta(minutes=15)
 a_day = datetime.timedelta(hours=24)
+midnight = datetime.timedelta()
 
 defaultlight_on = datetime.timedelta(hours=6)
 desired_light_on = defaultlight_on
@@ -47,6 +48,15 @@ ifconfig_data=None
 
 relay=range(1,9)
 val=range(1,10)
+
+
+def new_time(nt):
+    if nt >= a_day:
+        return midnight
+    elif nt < midnight:
+        return a_day - tdelta
+    else:
+        return nt
 
 ####################
 ## Reset to default
@@ -197,11 +207,9 @@ def set_light_on():
     global desired_light_on
     try:
         if request.form.get('light_on') == 'inc':
-            desired_light_on += tdelta
-            desired_light_on %= a_day
+            desired_light_on = new_time(desired_light_on + tdelta)
         elif request.form.get('light_on') == 'dec':
-            desired_light_on -= tdelta
-            desired_light_on %= a_day
+            desired_light_on = new_time(desired_light_on - tdelta)
         else:
             pass
     except:
@@ -213,11 +221,9 @@ def set_light_off():
     global desired_light_off
     try:
         if request.form.get('light_off') == 'inc':
-            desired_light_off += tdelta
-            desired_light_off %= a_day
+            desired_light_off = new_time(desired_light_off + tdelta)
         elif request.form.get('light_off') == 'dec':
-            desired_light_off -= tdelta
-            desired_light_off %= a_day
+            desired_light_off = new_time(desired_light_off - tdelta)
         else:
             pass
     except:
