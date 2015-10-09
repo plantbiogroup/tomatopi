@@ -4,11 +4,12 @@
 # measurements on url encoded form to the server and gets the desired
 # conrol values back.
 
-import pycurl
-import urllib
 import StringIO
+import json
 import os
+import pycurl
 import sys
+import urllib
 
 outbuf = StringIO.StringIO()
 
@@ -43,10 +44,12 @@ def report_measurements(endpoint):
     desired_relay_file='/tmp/desired_relay'
     
     line = outbuf.getvalue()
-    string = line.split()
-    desired_temperature=float(string[0])
-    desired_humidity=float(string[1])
-    
+    vals = json.loads(line)
+    desired_temperature=vals['desired_temperature']
+    desired_humidity=vals['desired_humidity']
+    desired_light_on=vals['desired_light_on']
+    desired_light_off=vals['desired_light_off']
+
     with open(desired_temperature_file, 'w') as f:
         f.write( '%0.1f' % (desired_temperature))
     
@@ -59,7 +62,7 @@ def report_measurements(endpoint):
     
     for i in range(1,9):
         with open('desired_relay_file%d' % (i), 'w') as f:
-            f.write(string[i+1])
+            f.write(vals['relays'][i])
     
 if __name__ == '__main__':
     # If the first arg is 'test' we fake the data

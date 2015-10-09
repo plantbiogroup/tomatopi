@@ -1,5 +1,6 @@
 <html>
-<head>
+  <head>
+    <meta http-equiv="refresh" content="30">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
@@ -12,18 +13,30 @@
       <th>actual</th>
     </tr>
     <tr>
-      <td>light cycle</td>
-      <td>light 18h/day</td>
-      <td>{{ desired_lightcycle }}
-	<form action="/desired_lightcycle" method="post">
-	  <input type="submit" name="lightcycle" value="inc">
+      <td>light on</td>
+      <td>{{ defaultlight_on }}</td>
+      <td>{{ desired_light_on }}
+	<form action="/desired_light_on" method="post">
+	  <input type="submit" name="light_on" value="inc">
 	</form>
-	<form action="/desired_lightcycle" method="post">
-	  <input type="submit" name="lightcycle" value="dec">
+	<form action="/desired_light_on" method="post">
+	  <input type="submit" name="light_on" value="dec">
 	</form>
-
       </td>
-      <td>{{ actual_temperature }}</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>light off</td>
+      <td>{{ defaultlight_off }}</td>
+      <td>{{ desired_light_off }}
+	<form action="/desired_light_off" method="post">
+	  <input type="submit" name="light_off" value="inc">
+	</form>
+	<form action="/desired_light_off" method="post">
+	  <input type="submit" name="light_off" value="dec">
+	</form>
+      </td>
+      <td></td>
     </tr>
     <tr>
       <td>temperature</td>

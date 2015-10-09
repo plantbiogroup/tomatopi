@@ -1,21 +1,30 @@
 #!/bin/python
 
 from flask import Flask
-from flask import request
-from flask import render_template
-from flask import session
-from flask import g
-from flask import redirect
-from flask import url_for
 from flask import flash
-import os.path
+from flask import g
+from flask import jsonify
+from flask import redirect
+from flask import render_template
+from flask import request
+from flask import session
+from flask import url_for
+import datetime
 import os
+import os.path
 
 app = Flask(__name__)
 
-defaultlightcycle = 20
-desired_lightcycle = defaultlightcycle
-desired_lightcycle_file="desired_lightcycle"
+tdelta = datetime.timedelta(minutes=15)
+a_day = datetime.timedelta(hours=24)
+
+defaultlight_on = datetime.timedelta(hours=6)
+desired_light_on = defaultlight_on
+desired_light_on_file="desired_light_on"
+
+defaultlight_off = datetime.timedelta(hours=22)
+desired_light_off = defaultlight_off
+desired_light_off_file="desired_light_off"
 
 defaulttemperature = 20
 desired_temperature = defaulttemperature
@@ -62,11 +71,17 @@ def reset_to_default():
     except:
         str+=' Temperature not reset'
     try:
-        desired_lightcycle=defaultlightcycle
-        with open(desired_lightcycle_file, 'w') as f:
-            f.write('%0.1f' % (defaultlightcycle))
+        desired_light_on=defaultlight_on
+        with open(desired_light_on_file, 'w') as f:
+            f.write('%0.1f' % (defaultlight_on))
     except:
-        str+=' Lightcycle not reset'
+        str+=' Light_on not reset'
+    try:
+        desired_light_off=defaultlight_off
+        with open(desired_light_off_file, 'w') as f:
+            f.write('%0.1f' % (defaultlight_off))
+    except:
+        str+=' Light_off not reset'
     return str
 
 ####################
@@ -109,19 +124,13 @@ def set_measurements():
         except:
             val[i]='off'
         print "val [%d] = %s" %(i, val[i])
+    parameters = {'desired_temperature' : desired_temperature,
+                  'desired_humidity' : desired_humidity,
+                  'desired_light_on' : 5,
+                  'desired_light_off' : 4,
+                  'relays' :val }
 
-    # Return desired TEMP and HUMIDITY
-    return "%0.1f %0.1f %s %s %s %s %s %s %s %s" % (desired_temperature,
-                                                    desired_humidity,
-                                                    val[1],
-                                                    val[2],
-                                                    val[3],
-                                                    val[4],
-                                                    val[5],
-                                                    val[6],
-                                                    val[7],
-                                                    val[8]
-    )
+    return jsonify( parameters )
 
 @app.route('/picture', methods=['POST'])
 def set_picture():
@@ -183,16 +192,34 @@ def set_temperature():
         pass
     return redirect(url_for('index'))
 
-@app.route('/desired_lightcycle', methods=['POST'])
-def set_lightcycle():
-    global desired_lightcycle
+@app.route('/desired_light_on', methods=['POST'])
+def set_light_on():
+    global desired_light_on
     try:
-        if request.form.get('lightcycle') == 'inc':
-            desired_lightcycle += 0.5
-        elif request.form.get('lightcycle') == 'dec':
-            desired_lightcycle -= 0.5
+        if request.form.get('light_on') == 'inc':
+            desired_light_on += tdelta
+            desired_light_on %= a_day
+        elif request.form.get('light_on') == 'dec':
+            desired_light_on -= tdelta
+            desired_light_on %= a_day
         else:
-            desired_lightcycle = float(request.form.get('lightcycle'))
+            pass
+    except:
+        pass
+    return redirect(url_for('index'))
+
+@app.route('/desired_light_off', methods=['POST'])
+def set_light_off():
+    global desired_light_off
+    try:
+        if request.form.get('light_off') == 'inc':
+            desired_light_off += tdelta
+            desired_light_off %= a_day
+        elif request.form.get('light_off') == 'dec':
+            desired_light_off -= tdelta
+            desired_light_off %= a_day
+        else:
+            pass
     except:
         pass
     return redirect(url_for('index'))
@@ -231,8 +258,10 @@ def index():
     else:
         file = "/static/default.png"
     return render_template('index.html',
-                           defaultlightcycle=defaultlightcycle,
-                           desired_lightcycle=desired_lightcycle,
+                           defaultlight_on=defaultlight_on,
+                           defaultlight_off=defaultlight_off,
+                           desired_light_on=desired_light_on,
+                           desired_light_off=desired_light_off,
                            defaulttemperature=defaulttemperature,
                            desired_temperature=desired_temperature,
                            defaulthumidity=defaulthumidity,
@@ -248,10 +277,16 @@ def index():
 ## Main
 if __name__ == '__main__':
     try:
-        with open(desired_lightcycle_file, 'r') as f:
-            desired_lightcycle=float(f.read())
+        with open(desired_light_on_file, 'r') as f:
+            desired_light_on=float(f.read())
     except:
-        desired_lightcycle = defaultlightcycle
+        desired_light_on = defaultlight_on
+
+    try:
+        with open(desired_light_off_file, 'r') as f:
+            desired_light_off=float(f.read())
+    except:
+        desired_light_off = defaultlight_off
 
     try:
         with open(desired_temperature_file, 'r') as f:
