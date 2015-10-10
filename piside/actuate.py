@@ -31,28 +31,31 @@
 #                      v   v   v   v   v   v   v   v
 # GPIO board pin      12  16  18  22  32  38  37  35
 
-def get_desired(renay_num):
+import RPi.GPIO as GPIO
+
+
+def get_desired(relay_num):
     if relay_num < 1 or relay_num > 8:
         return 'off'
     try:
         with open('/tmp/desired_relay%d' % (relay_num), 'r') as f:
-        val=f.read().strip()
+            val=f.read().strip()
     except:
         val = 'off'
     return val
 
-def set_pin(relay_num):
+def set_pin(relay_num, desired):
     ###         1   2   3   4   5   6   7   8
     ###         |   |   |   |   |   |   |   |
     ###         v   v   v   v   v   v   v   v
-    pinList = [12, 16, 18, 22, 32, 38, 37, 35]
+    pinlist = [12, 16, 18, 22, 32, 38, 37, 35]
     if relay_num < 1 or relay_num > 8:
         return None
     pin = pinlist[relay_num-1]
     GPIO.setup(pin, GPIO.OUT)
     if desired == 'off':
         GPIO.output(pin, GPIO.LOW)
-    elif iopin == 'on':
+    elif desired == 'on':
         GPIO.output(pin, GPIO.HIGH)
     else:
         try:
@@ -62,5 +65,7 @@ def set_pin(relay_num):
             pass
 
 if __name__ == '__main__':
+    GPIO.setmode(GPIO.BOARD)
+
     for relay in range(1,9):
-        set_pin = get_desired(relay)
+        set_pin(relay, get_desired(relay))
