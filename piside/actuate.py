@@ -1,25 +1,58 @@
 #!/usr/bin/python
+#
+#   = = A C T U A T O R = =
+#
+# This module sets the GPIO pins which in
+# turn flipps the relays.  The relays are
+# bistable, so there is no need to hold the pins
+# up or down.
+#
+# The desired values are read from the files
+# /tmp/desired_relay1 though /tmp/desired_relay8
+#
+# The values can be:
+# on         -- flipps the relay to on.
+#               *Used for long (aka more than a
+#                minute) activities.  Usefull for
+#                lighting and heating.
+# off        -- flipps the relay to off.
+# <a number> -- a number between 0 and 6000
+#               indicating how many milli seconds
+#               the relay will be flipped to on.
+#               *This is usefull for things that need
+#                bursts, like CO2 flows from
+#                preasurized containers.
+#
+# This board is configured with 8 relays, and the
+# wiring to the Raspberry Pi B+ header is:
+#
+# relay number         1   2   3   4   5   6   7   8
+#                      |   |   |   |   |   |   |   |
+#                      v   v   v   v   v   v   v   v
+# GPIO board pin      12  16  18  22  32  38  37  35
 
-pinList = [12, 16, 18, 22, 32, 38, 37, 35]
-
-setpins=[]
-
-for i in range(1,9):
+def get_desired(renay_num):
+    if relay_num < 1 or relay_num > 8:
+        return 'off'
     try:
-        with open('/tmp/desired_relay%d' % (i), 'r') as f:
-        val=f.read()
-        setpins[i]=val.strip()
+        with open('/tmp/desired_relay%d' % (relay_num), 'r') as f:
+        val=f.read().strip()
     except:
-        setpins[i]='off'
+        val = 'off'
+    return val
 
-
-for pin in setpins:
-    iopin = setpins[pin]
-    if iopin == 'off':
-        GPIO.setup(pin, GPIO.OUT)
+def set_pin(relay_num):
+    ###         1   2   3   4   5   6   7   8
+    ###         |   |   |   |   |   |   |   |
+    ###         v   v   v   v   v   v   v   v
+    pinList = [12, 16, 18, 22, 32, 38, 37, 35]
+    if relay_num < 1 or relay_num > 8:
+        return None
+    pin = pinlist[relay_num-1]
+    GPIO.setup(pin, GPIO.OUT)
+    if desired == 'off':
         GPIO.output(pin, GPIO.LOW)
     elif iopin == 'on':
-        GPIO.setup(pin, GPIO.OUT)
         GPIO.output(pin, GPIO.HIGH)
     else:
         try:
@@ -27,3 +60,7 @@ for pin in setpins:
             millisec=(int(iopin) % 6000) / 1000.0
         except:
             pass
+
+if __name__ == '__main__':
+    for relay in range(1,9):
+        set_pin = get_desired(relay)

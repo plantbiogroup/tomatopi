@@ -23,26 +23,29 @@ def report_measurements(endpoint):
             field['data']= buf
     except:
         pass
-    
+
     ## Get the ifconfig for ease of use
     try:
         ifconfig=os.popen('/sbin/ifconfig').read()
         field['ifconfig'] = ifconfig
     except:
         pass
-    
+
     c = pycurl.Curl()
     c.setopt(c.URL, endpoint)
     c.setopt(c.POSTFIELDS, urllib.urlencode(field))
     c.setopt(pycurl.WRITEFUNCTION, outbuf.write)
     c.perform()
-    
+
     ## Now get the result from the call.  It should be two floats, Temp
     ## and Humidity
     desired_temperature_file='/tmp/desired_temperature'
     desired_humidity_file='/tmp/desired_humudity'
     desired_relay_file='/tmp/desired_relay'
-    
+    desired_light_on_file='/tmp/desired_light_on'
+    desired_light_off_file='/tmp/desired_light_off'
+
+
     line = outbuf.getvalue()
     vals = json.loads(line)
     desired_temperature=vals['desired_temperature']
@@ -52,18 +55,24 @@ def report_measurements(endpoint):
 
     with open(desired_temperature_file, 'w') as f:
         f.write( '%0.1f' % (desired_temperature))
-    
+
     with open(desired_humidity_file, 'w') as f:
         f.write( '%0.1f' % (desired_humidity))
-    
+
+    with open(desired_light_on_file, 'w') as f:
+        f.write( '%s' % (desired_light_on))
+
+    with open(desired_light_off_file, 'w') as f:
+        f.write( '%s' % (desired_light_off))
+
     with open('/tmp/measurements', 'w') as f:
         f.write( '' )               # Clear measurements
-    
-    
+
+
     for i in range(1,9):
         with open('desired_relay_file%d' % (i), 'w') as f:
             f.write(vals['relays'][i])
-    
+
 if __name__ == '__main__':
     # If the first arg is 'test' we fake the data
     if len(sys.argv) > 1 and sys.argv[1] == 'test':
