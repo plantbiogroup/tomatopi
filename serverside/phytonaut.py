@@ -189,7 +189,7 @@ def set_humidity():
             desired_humidity = float(request.form.get('humidity'))
     except:
         pass
-    return redirect(url_for('index'))
+    return redirect(url_for('biodome'))
 
 @app.route('/desired_temperature', methods=['POST'])
 def set_temperature():
@@ -203,7 +203,7 @@ def set_temperature():
             desired_temperature = float(request.form.get('temperature'))
     except:
         pass
-    return redirect(url_for('index'))
+    return redirect(url_for('biodome'))
 
 @app.route('/desired_light_on', methods=['POST'])
 def set_light_on():
@@ -217,7 +217,7 @@ def set_light_on():
             pass
     except:
         pass
-    return redirect(url_for('index'))
+    return redirect(url_for('biodome'))
 
 @app.route('/desired_light_off', methods=['POST'])
 def set_light_off():
@@ -231,7 +231,7 @@ def set_light_off():
             pass
     except:
         pass
-    return redirect(url_for('index'))
+    return redirect(url_for('biodome'))
 
 ####################
 ## Get ACTUAL values
@@ -259,14 +259,14 @@ def get_lastmeasurement():
     return 'fail'
 
 ####################
-## Main
-@app.route('/', methods=['GET'])
-def index():
+## biodome
+@app.route('/biodome', methods=['GET'])
+def biodome():
     if os.path.isfile("static/picture.jpg") and os.stat("static/picture.jpg").st_size != 0:
         file = "/static/picture.jpg"
     else:
         file = "/static/default.png"
-    return render_template('index.html',
+    return render_template('biodome.html',
                            defaultlight_on=defaultlight_on,
                            defaultlight_off=defaultlight_off,
                            desired_light_on=desired_light_on,
@@ -281,6 +281,12 @@ def index():
                            file=file,
                            relay=relay)
 
+
+####################
+## Root
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
 
 ####################
 ## Main

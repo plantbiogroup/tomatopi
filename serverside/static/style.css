@@ -4,6 +4,10 @@ body
     background-color: #ffffee;
 }
 
+#ambient {
+    display: block;
+}
+
 .ambient {
     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
     width: 40%;
