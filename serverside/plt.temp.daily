@@ -1,0 +1,13 @@
+cat<<EOF | gnuplot
+set xdata time
+set timefmt "%Y-%m-%dT%H:%M:%S"
+set format x "%H:%M"
+set timefmt "%Y-%m-%dT%H:%M:%S"
+set datafile separator ","
+set grid
+set ylabel "degree Celsius (°C)"
+set xlabel "Time of day (24h)"
+set terminal png size 1200,300 enhanced font "Helvetica,8"
+set output 'temperature.png'
+plot "measurements" using 1:2 with lines title "Temperature `date +%Y-%m-%d`"
+EOF
