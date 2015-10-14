@@ -1,17 +1,17 @@
 #!/bin/bash
-## Every hour, plot a days worth of data
+## Every day, plot a weeks worth of data
 
 PATH=/home/jarl/ws/plantbiogroup/tomatopi/serverside/static
-NAME=`/bin/date +%Y-%m-%d`
+NAME=`/bin/date +%Ywk%V`
 
 TIMEFMT="%Y-%m-%dT%H:%M:%S"
 NOW=`/bin/date +"${TIMEFMT}"`
-THEN=`/bin/date --date="yesterday" +"${TIMEFMT}"`
+THEN=`/bin/date --date="last week" +"${TIMEFMT}"`
 
-/bin/mkdir -p ${PATH}/daily/humidity/
+/bin/mkdir -p ${PATH}/weekly/humidity/
 
-# Start by pruning old data
-find ${PATH}/daily/humidity/ -type f -mtime +7 -delete
+# Prune old data
+find ${PATH}/weekly/humidity/ -type f -mtime +31 -delete
 
 /bin/cat<<EOF | /usr/bin/gnuplot
 set xdata time
