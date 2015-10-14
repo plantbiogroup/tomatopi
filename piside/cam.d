@@ -1,0 +1,5 @@
+# Run cam once every 5 minutes
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=jarl@thinkgland.com
+*/5 * * * * root /usr/local/bin/cam.sh

@@ -1,28 +1,38 @@
-BIN=/usr/local/bin/
+BINS=/usr/local/bin/analyze.py \
+	/usr/local/bin/actuate.py \
+	/usr/local/bin/temp.py \
+	/usr/local/bin/cam.sh \
+	/usr/local/bin/cycle.sh \
+	/etc/cron.d/cam.d \
+	/etc/cron.d/cycle.d \
+	/etc/cron.hourly/tempuploader.py \
+	/etc/cron.hourly/camuploader.sh
 
-BINS=${BIN}analyze.py \
-	${BIN}actuate.py \
-	${BIN}temp.py \
-	${BIN}tempuploader.py \
-	${BIN}cam.sh \
-	${BIN}camuploader.sh
-
-${BIN}analyze.py: analyze.py
+/usr/local/bin/cycle.sh: cycle.sh
 	sudo cp $^ $@
 
-${BIN}actuate.py: actuate.py
+/usr/local/bin/analyze.py: analyze.py
 	sudo cp $^ $@
 
-${BIN}temp.py: temp.py
+/usr/local/bin/actuate.py: actuate.py
 	sudo cp $^ $@
 
-${BIN}tempuploader.py: tempuploader.py
+/usr/local/bin/temp.py: temp.py
 	sudo cp $^ $@
 
-${BIN}cam.sh: cam.sh
+/usr/local/bin/cam.sh: cam.sh
 	sudo cp $^ $@
 
-${BIN}camuploader.sh: camuploader.sh
+/etc/cron.d/cam.d: cam.d
+	sudo cp $^ $@
+
+/etc/cron.d/cycle.d: cycle.d
+	sudo cp $^ $@
+
+/etc/cron.hourly/tempuploader.py: tempuploader.py
+	sudo cp $^ $@
+
+/etc/cron.hourly/camuploader.sh: camuploader.sh
 	sudo cp $^ $@
 
 crontab:

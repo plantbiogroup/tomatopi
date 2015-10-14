@@ -7,6 +7,9 @@ rel=[1.0]*10
 temperature=None
 humidity=None
 
+desired_measurements='/tmp/measurements'
+desired_relay_file='/tmp/desired_relay'
+
 ## Make an actual temp and humidity read
 def read_temp():
     global temperature
@@ -50,13 +53,13 @@ def writeout():
 
     for i in range(1,9):
         try:
-            with open('/tmp/desired_relay%d' % (i), 'r') as f:
+            with open('%s%d' % (desired_relay_file,i), 'r') as f:
                 rel[i]=f.read().strip()
         except:
             pass
 
     if temperature is not None and humidity is not None:
-        with open('/tmp/measurements', 'a') as tmp:
+        with open(desired_measurements, 'a') as tmp:
             tmp.write('%s,%0.1f,%0.1f,%d,%d,%d,%d,%d,%d,%d,%d\n' %
                       (time.strftime("%FT%T"),
                        temperature,

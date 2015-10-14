@@ -11,6 +11,13 @@ import pycurl
 import sys
 import urllib
 
+desired_temperature_file='/tmp/desired_temperature'
+desired_humidity_file='/tmp/desired_humudity'
+desired_relay_file='/tmp/desired_relay'
+desired_light_on_file='/tmp/desired_light_on'
+desired_light_off_file='/tmp/desired_light_off'
+desired_measurements='/tmp/measurements'
+
 outbuf = StringIO.StringIO()
 
 field = {}
@@ -18,7 +25,7 @@ field = {}
 def report_measurements(endpoint):
     ## Get the data collected so far
     try:
-        with open('/tmp/measurements', 'r') as f:
+        with open(desired_measurements, 'r') as f:
             buf = f.read()
             field['data']= buf
     except:
@@ -39,11 +46,6 @@ def report_measurements(endpoint):
 
     ## Now get the result from the call.  It should be two floats, Temp
     ## and Humidity
-    desired_temperature_file='/tmp/desired_temperature'
-    desired_humidity_file='/tmp/desired_humudity'
-    desired_relay_file='/tmp/desired_relay'
-    desired_light_on_file='/tmp/desired_light_on'
-    desired_light_off_file='/tmp/desired_light_off'
 
 
     line = outbuf.getvalue()
@@ -65,7 +67,7 @@ def report_measurements(endpoint):
     with open(desired_light_off_file, 'w') as f:
         f.write( '%s' % (desired_light_off))
 
-    with open('/tmp/measurements', 'w') as f:
+    with open(desired_measurements, 'w') as f:
         f.write( '' )               # Clear measurements
 
 
