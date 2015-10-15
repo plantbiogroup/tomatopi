@@ -1,17 +1,17 @@
 #!/bin/bash
 ## Every hour, plot a days worth of data
 
-PATH=/home/jarl/ws/plantbiogroup/tomatopi/serverside/static
+PATH=/home/ec2-user/tomatopi/serverside
 NAME=`/bin/date +%Y-%m-%d`
 
 TIMEFMT="%Y-%m-%dT%H:%M:%S"
 NOW=`/bin/date +"${TIMEFMT}"`
 THEN=`/bin/date --date="yesterday" +"${TIMEFMT}"`
 
-/bin/mkdir -p ${PATH}/daily/humidity/
+/bin/mkdir -p ${PATH}/static/daily/humidity/
 
-# Start by pruning old data
-find ${PATH}/daily/humidity/ -type f -mtime +7 -delete
+# Prune old data
+#/usr/bin/find ${PATH}/static/daily/humidity/ -type f -mtime +7 -delete
 
 /bin/cat<<EOF | /usr/bin/gnuplot
 set xdata time
@@ -23,6 +23,6 @@ set grid
 set ylabel "humidity (%)"
 set xlabel "Time of day (24h)"
 set terminal png size 1200,300 enhanced font "Helvetica,8"
-set output "${PATH}/daily/humidity/${NAME}.png"
-plot ["${THEN}":"${NOW}"] "${PATH}/measurements" using 1:2 with lines title "Humidity ${NAME}"
+set output "${PATH}/static/daily/humidity/${NAME}.png"
+plot ["${THEN}":"${NOW}"] "${PATH}/measurements" using 1:2 with lines title "Humidityerature ${NAME}"
 EOF
