@@ -11,6 +11,14 @@
 
     <title>Our super duper Plant Bio Group Development website</title>
 
+ <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="js/vendor/holder.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+
     <!-- Bootstrap core CSS -->
     <link href="/static/css/bootstrap.min.css" rel="stylesheet">
 
@@ -26,50 +34,57 @@
 
     <!-- Custom styles for this template -->
     <link href="/static/carousel.css" rel="stylesheet">
+    <script> 
+    $(function(){
+      $("#includedContent").load("/static/navbar.html"); 
+    });
+    </script> 
   </head>
 <!-- NAVBAR
 ================================================== -->
   <body>
-    <div class="navbar-wrapper">
-      <div class="container">
+     <div id="includedContent"></div>
+    <!-- <div class="navbar-wrapper"> -->
+    <!--   <div class="container"> -->
 
-        <nav class="navbar navbar-inverse navbar-static-top">
-          <div class="container">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-              <a class="active" font-size="36"  font-color="limegreen" href="#"><img src="/static/imgs/logo2.png" alt="Plant Bio Group" vertical-align="top" height="60" width="150"> </a>
+    <!--     <nav class="navbar navbar-inverse navbar-static-top"> -->
+    <!--       <div class="container"> -->
+    <!--         <div class="navbar-header"> -->
+    <!--           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar"> -->
+    <!--             <span class="sr-only">Toggle navigation</span> -->
+    <!--             <span class="icon-bar"></span> -->
+    <!--             <span class="icon-bar"></span> -->
+    <!--             <span class="icon-bar"></span> -->
+    <!--           </button> -->
+    <!--           <a class="active" font-size="36"  font-color="limegreen" href="#"><img src="/static/imgs/logo2.png" alt="Plant Bio Group" vertical-align="top" height="60" width="150"> </a> -->
 
-            </div>
-            <div id="navbar" class="navbar-collapse collapse" text-align="right"-->
-              <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="/static/about.html">About</a></li>
-                <li><a href="/biodome">BioDome</a></li>
-                <li><a href="/static/contact.html">Contact</a></li>
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li class="dropdown-header">Nav header</li>
-                    <li><a href="#">Separated link</a></li>
-                    <li><a href="#">One more separated link</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
+    <!--         </div> -->
+    <!--         <div id="navbar" class="navbar-collapse collapse" text-align="right"-\-> -->
+    <!--           <ul class="nav navbar-nav"> -->
+    <!--             <li class="active"><a href="#">Home</a></li> -->
+    <!--             <li><a href="/static/about.html">About</a></li> -->
+    <!--             <li><a href="/biodome">BioDome</a></li> -->
+    <!--             <li><a href="/static/contact.html">Contact</a></li> -->
+    <!--             <li class="dropdown"> -->
+    <!--               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a> -->
+    <!--               <ul class="dropdown-menu"> -->
+    <!--                 <li><a href="#">Action</a></li> -->
+    <!--                 <li><a href="#">Another action</a></li> -->
+    <!--                 <li><a href="#">Something else here</a></li> -->
+    <!--                 <li role="separator" class="divider"></li> -->
+    <!--                 <li class="dropdown-header">Nav header</li> -->
+    <!--                 <li><a href="#">Separated link</a></li> -->
+    <!--                 <li><a href="#">One more separated link</a></li> -->
+    <!--               </ul> -->
+    <!--             </li> -->
+    <!--           </ul> -->
+    <!--         </div> -->
+    <!--       </div> -->
+    <!--     </nav> -->
 
-      </div>
-    </div>
+    <!--   </div> -->
+    <!-- </div> -->
+
 
 
     <!-- Carousel
