@@ -137,13 +137,16 @@
 	</table>
 	</div> <!-- ambient-left -->
 
+    </div> <!-- class="row" -->
+
+    <div class="row">
       <div class="ambient-left">
-	<h3>Temperatures</h3>
+	<h3>Temperature</h3>
 	{% for graph in graphs %}
 	<h4>{{ graph }}</h4>
 	<img class="ambient-graph" src="/static/daily/temp/{{ graph }}">
 	{% endfor %}
-      </div> <!-- amient-left -->
+      </div> <!-- ambient-left -->
 
       <div class="ambient-right">
 	<h3>Humidity</h3>
@@ -151,10 +154,9 @@
 	<h4>{{ graph }}</h4>
 	<img class="ambient-graph" src="/static/daily/temp/{{ graph }}">
 	{% endfor %}
-      </div> <!-- amient-right -->
+      </div> <!-- ambient-right -->
+    </div>
 
-    </div> <!-- class="row" -->
-    
     <pre>
       {{ ifconfig_data }}
     </pre>
