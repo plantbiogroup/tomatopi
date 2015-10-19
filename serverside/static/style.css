@@ -55,6 +55,11 @@ body
     width: 100%;
 }
 
+.ambient-img {
+    width: 90%;
+    margin: 15px;
+}
+
 .brk {
  display:block;
  clear:both;

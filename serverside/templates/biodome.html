@@ -11,7 +11,7 @@
 
     <title>Our super duper Plant Bio Group Development website</title>
 
- <!-- Placed at the end of the document so the pages load faster -->
+    <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
     <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
@@ -30,130 +30,138 @@
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 
     <!-- Custom styles for this template -->
     <link href="/static/carousel.css" rel="stylesheet">
     <script> 
-    $(function(){
+      $(function(){
       $("#includedContent").load("/static/navbar.html"); 
-    });
+      });
     </script> 
   </head>
-<!-- NAVBAR
-================================================== -->
+  <!-- NAVBAR
+       ================================================== -->
   <body>
-     <div id="includedContent"></div>
-</br></br></br></br></br>
+    <div id="includedContent"></div>
+    </br></br></br></br></br>
 
     <div class="container">
-      <div class="ambient-right">
-	<img width="80%" src={{ file }}>
-      </div>
+      
+      <div class="row">
+        <div class="ambient-left">
+          <a href="{{ file }}">
+            <img class="ambient-img" src={{ file }}>
+          </a>
+        </div>
 
+        <div class="span5">
+          <table class="ambient">
+            <caption>Ambient Values</caption>
+            <tr>
+              <th>Variable</th>
+              <th>Default</th>
+              <th>Desired</th>
+              <th>Actual</th>
+            </tr>
+            <tr>
+              <td>light on</td>
+              <td>{{ defaultlight_on }}</td>
+              <td>
+                <form class="ambient" action="/desired_light_on" method="post">
+                  <input type="submit" name="light_on" value="inc">
+                  <input type="submit" name="light_on" value="dec">
+                  {{ desired_light_on }}
+                </form>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>light off</td>
+              <td>{{ defaultlight_off }}</td>
+              <td>
+                <form class="ambient" action="/desired_light_off" method="post">
+                  <input type="submit" name="light_off" value="inc">
+                  <input type="submit" name="light_off" value="dec">
+                  {{ desired_light_off }}
+                </form>
+              </td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>temperature</td>
+              <td>{{ defaulttemperature }}&#176;C</td>
+              <td>
+                <form class="ambient" action="/desired_temperature" method="post">
+                  <input type="submit" name="temperature" value="inc">
+                  <input type="submit" name="temperature" value="dec">
+                  {{ desired_temperature }}&#176;C
+                </form>
+              </td>
+              <td>{{ actual_temperature }}&#176;C</td>
+            </tr>
+            <tr class="alt">
+              <td>humidity</td>
+              <td>{{ defaulthumidity }}%</td>
+              <td>
+                <form class="ambient" action="/desired_humidity" method="post">
+                  <input type="submit" name="humidity" value="inc">
+                  <input type="submit" name="humidity" value="dec">
+                  {{ desired_humidity }}%
+                </form>
+              </td>
+              <td>{{ actual_humidity }}%</td>
+            </tr>
+          </table>
+          
+          <table class="ambient">
+            <caption class="relays">Relays</caption>
+            <tr>
+              <th>Relay #</th>
+              <th>Alias</th>
+              <th>Value</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>light</td>
+              <td>{{ relay[1] }}</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>temp</td>
+              <td>{{ relay[2] }}</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>humidity</td>
+              <td>{{ relay[3] }}</td>
+            </tr>
+          </table>
+        </div> <!-- span5 -->
+      </div> <!-- row -->
+    </div> <!-- container -->
+
+    <div class="container">
       <div class="ambient-left">
-	<table class="ambient">
-	  <caption>Ambient Values</caption>
-	  <tr>
-	    <th>Variable</th>
-	    <th>Default</th>
-	    <th>Desired</th>
-	    <th>Actual</th>
-	  </tr>
-	  <tr>
-	    <td>light on</td>
-	    <td>{{ defaultlight_on }}</td>
-	    <td>
-	      <form class="ambient" action="/desired_light_on" method="post">
-		<input type="submit" name="light_on" value="inc">
-		<input type="submit" name="light_on" value="dec">
-		{{ desired_light_on }}
-	      </form>
-	    </td>
-	    <td></td>
-	  </tr>
-	  <tr>
-	    <td>light off</td>
-	    <td>{{ defaultlight_off }}</td>
-	    <td>
-	      <form class="ambient" action="/desired_light_off" method="post">
-		<input type="submit" name="light_off" value="inc">
-		<input type="submit" name="light_off" value="dec">
-		{{ desired_light_off }}
-	      </form>
-	    </td>
-	    <td></td>
-	  </tr>
-	  <tr>
-	    <td>temperature</td>
-	    <td>{{ defaulttemperature }}&#176;C</td>
-	    <td>
-	      <form class="ambient" action="/desired_temperature" method="post">
-		<input type="submit" name="temperature" value="inc">
-		<input type="submit" name="temperature" value="dec">
-		{{ desired_temperature }}&#176;C
-	      </form>
-	    </td>
-	    <td>{{ actual_temperature }}&#176;C</td>
-	  </tr>
-	  <tr class="alt">
-	    <td>humidity</td>
-	    <td>{{ defaulthumidity }}%</td>
-	    <td>
-	      <form class="ambient" action="/desired_humidity" method="post">
-		<input type="submit" name="humidity" value="inc">
-		<input type="submit" name="humidity" value="dec">
-		{{ desired_humidity }}%
-	      </form>
-	    </td>
-	    <td>{{ actual_humidity }}%</td>
-	  </tr>
-	</table>
-	
-	<table class="ambient">
-	  <caption class="relays">Relays</caption>
-	  <tr>
-	    <th>Relay #</th>
-	    <th>Alias</th>
-	    <th>Value</th>
-	  </tr>
-	  <tr>
-	    <td>1</td>
-	    <td>light</td>
-	    <td>{{ relay[1] }}</td>
-	  </tr>
-	  <tr>
-	    <td>2</td>
-	    <td>temp</td>
-	    <td>{{ relay[2] }}</td>
-	  </tr>
-	  <tr>
-	    <td>3</td>
-	    <td>humidity</td>
-	    <td>{{ relay[3] }}</td>
-	  </tr>
-	</table>
-	</div> <!-- ambient-left -->
-
-    </div> <!-- class="row" -->
-
-    <div class="row">
-      <div class="ambient-left">
-	<h3>Temperature</h3>
-	{% for graph in graphs %}
-	<h4>{{ graph }}</h4>
-	<img class="ambient-graph" src="/static/daily/temp/{{ graph }}">
-	{% endfor %}
+        <h3>Temperature</h3>
+        {% for graph in graphs %}
+        <h4>{{ graph }}</h4>
+        <a href="/static/daily/temp/{{ graph }}">
+          <img class="ambient-graph" src="/static/daily/temp/{{ graph }}">
+        </a>
+        {% endfor %}
       </div> <!-- ambient-left -->
 
       <div class="ambient-right">
-	<h3>Humidity</h3>
-	{% for graph in graphs %}
-	<h4>{{ graph }}</h4>
-	<img class="ambient-graph" src="/static/daily/temp/{{ graph }}">
-	{% endfor %}
+        <h3>Humidity</h3>
+        {% for graph in graphs %}
+        <h4>{{ graph }}</h4>
+        <a href="/static/daily/temp/{{ graph }}">
+          <img class="ambient-graph" src="/static/daily/temp/{{ graph }}">
+        </a>
+        {% endfor %}
       </div> <!-- ambient-right -->
     </div>
 
@@ -161,16 +169,16 @@
       {{ ifconfig_data }}
     </pre>
 
-      <!-- FOOTER -->
-      <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
-      </footer>
+    <!-- FOOTER -->
+    <footer>
+      <p class="pull-right"><a href="#">Back to top</a></p>
+      <p>&copy; 2014 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </footer>
 
 
 
     <!-- Bootstrap core JavaScript
-    ================================================== -->
+         ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
