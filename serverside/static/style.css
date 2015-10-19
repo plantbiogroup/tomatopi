@@ -38,3 +38,20 @@ body
 .ambient form {
     white-space: nowrap;
 }
+
+.ambient-right {
+    float: right;
+    width: 48%;
+    margin-top: 30px;
+}
+
+.ambient-left {
+    float: left;
+    width: 48%;
+    margin-top: 30px;
+}
+
+.ambient-graph {
+    width: 100%;
+}
+

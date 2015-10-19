@@ -266,6 +266,7 @@ def biodome():
         file = "/static/picture.jpg"
     else:
         file = "/static/default.png"
+    graphs = ["2015-10-14.png", "2015-10-15.png", "2015-10-16.png"]
     return render_template('biodome.html',
                            defaultlight_on=defaultlight_on,
                            defaultlight_off=defaultlight_off,
@@ -279,6 +280,7 @@ def biodome():
                            actual_humidity=actual_humidity,
                            ifconfig_data=ifconfig_data,
                            file=file,
+                           graphs=graphs,
                            relay=relay)
 
 

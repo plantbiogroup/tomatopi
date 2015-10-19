@@ -49,14 +49,18 @@
 </br></br></br></br></br>
 
     <div class="container">
-      <div style="float:left;">
+      <div class="ambient-right">
+	<img width="80%" src={{ file }}>
+      </div>
+
+      <div class="ambient-left">
 	<table class="ambient">
 	  <caption>Ambient Values</caption>
 	  <tr>
 	    <th>Variable</th>
-	    <th>default</th>
-	    <th>desired</th>
-	    <th>actual</th>
+	    <th>Default</th>
+	    <th>Desired</th>
+	    <th>Actual</th>
 	  </tr>
 	  <tr>
 	    <td>light on</td>
@@ -131,16 +135,30 @@
 	    <td>{{ relay[3] }}</td>
 	  </tr>
 	</table>
-	
-	<img src={{ file }}>
-	
-	<img src="/static/daily/temp/2015-10-14.png">
-	<pre>
-	  {{ ifconfig_data }}
-	</pre>
-      </div> <!-- class="container" -->
+	</div> <!-- ambient-left -->
+
+      <div class="ambient-left">
+	<h3>Temperatures</h3>
+	{% for graph in graphs %}
+	<h4>{{ graph }}</h4>
+	<img class="ambient-graph" src="/static/daily/temp/{{ graph }}">
+	{% endfor %}
+      </div> <!-- amient-left -->
+
+      <div class="ambient-right">
+	<h3>Humidity</h3>
+	{% for graph in graphs %}
+	<h4>{{ graph }}</h4>
+	<img class="ambient-graph" src="/static/daily/temp/{{ graph }}">
+	{% endfor %}
+      </div> <!-- amient-right -->
+
     </div> <!-- class="row" -->
     
+    <pre>
+      {{ ifconfig_data }}
+    </pre>
+
       <!-- FOOTER -->
       <footer>
         <p class="pull-right"><a href="#">Back to top</a></p>
