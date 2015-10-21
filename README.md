@@ -19,10 +19,12 @@ Computer controlled tomatoes with laser beams... from Mars.
 * measurements -- cumulative measurements over time. <temperature humidity>
 
 ## Packages
-We require pycurl on the Pi.
+We require pycurl and anacron on the Pi.
 ```
 apt-get install python-pycurl
+apt-get install anacron
 ```
+
 
 ## REST Endpoints
 
