@@ -1,54 +1,54 @@
-BINS=/usr/local/bin/analyze.py \
-	/usr/local/bin/actuate.py \
-	/usr/local/bin/temp.py \
-	/usr/local/bin/cam.sh \
-	/usr/local/bin/cycle.sh \
-	/etc/cron.d/cam.d \
-	/etc/cron.d/cycle.d \
-	/etc/cron.hourly/tempuploader.py \
-	/etc/cron.hourly/camuploader.sh
+BINS=/usr/local/bin/analyze \
+	/usr/local/bin/actuate \
+	/usr/local/bin/temp \
+	/usr/local/bin/cam \
+	/usr/local/bin/cycle \
+	/etc/cron.d/cam \
+	/etc/cron.d/cycle \
+	/etc/cron.hourly/tempuploader \
+	/etc/cron.hourly/camuploader
 
-/usr/local/bin/cycle.sh: cycle.sh
+/usr/local/bin/cycle: cycle
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
 
-/usr/local/bin/analyze.py: analyze.py
+/usr/local/bin/analyze: analyze
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
 
-/usr/local/bin/actuate.py: actuate.py
+/usr/local/bin/actuate: actuate
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
 
-/usr/local/bin/temp.py: temp.py
+/usr/local/bin/temp: temp
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
 
-/usr/local/bin/cam.sh: cam.sh
+/usr/local/bin/cam: cam
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
 
-/etc/cron.d/cam.d: cam.d
+/etc/cron.d/campart: campart
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
 
-/etc/cron.d/cycle.d: cycle.d
+/etc/cron.d/cyclepart: cyclepart
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
 
-/etc/cron.hourly/tempuploader.py: tempuploader.py
+/etc/cron.hourly/tempuploader: tempuploader
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
 
-/etc/cron.hourly/camuploader.sh: camuploader.sh
+/etc/cron.hourly/camuploader: camuploader
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
