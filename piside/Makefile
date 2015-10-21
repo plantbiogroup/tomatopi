@@ -35,10 +35,7 @@ BINS=/usr/local/bin/analyze.py \
 /etc/cron.hourly/camuploader.sh: camuploader.sh
 	sudo cp $^ $@
 
-crontab:
-	sudo crontab -u root cron.tab
-
-install: ${BINS} crontab
+install: ${BINS}
 
 clean:
 	find . -name \*~ -delete
