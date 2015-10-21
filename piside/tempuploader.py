@@ -72,7 +72,7 @@ def report_measurements(endpoint):
 
 
     for i in range(1,9):
-        with open('desired_relay_file%d' % (i), 'w') as f:
+        with open('%s%d' % (desired_relay_file, i), 'w') as f:
             f.write(vals['relays'][i])
 
 if __name__ == '__main__':
