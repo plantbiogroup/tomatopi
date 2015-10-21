@@ -1,10 +1,10 @@
 BINS=/usr/local/bin/analyze \
 	/usr/local/bin/actuate \
-	/usr/local/bin/temp \
+	/usr/local/bin/temperature \
 	/usr/local/bin/cam \
 	/usr/local/bin/cycle \
-	/etc/cron.d/cam \
-	/etc/cron.d/cycle \
+	/etc/cron.d/campart \
+	/etc/cron.d/cyclepart \
 	/etc/cron.hourly/tempuploader \
 	/etc/cron.hourly/camuploader
 
@@ -23,7 +23,7 @@ BINS=/usr/local/bin/analyze \
 	chmod 755 $@
 	chown root.root $@
 
-/usr/local/bin/temp: temp
+/usr/local/bin/temperature: temperature
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
