@@ -25,6 +25,28 @@ apt-get install python-pycurl
 apt-get install anacron
 ```
 
+## Hardware Considerations
+
+If you have one of those handy little Edimax WiFi USB dongles, you
+need to turn off the power management.
+
+Add the following 
+```
+\#Disable power management
+options 8192cu rtw_power_mgnt=0
+```
+to the file /etc/modprobe.d/8192cu.conf
+
+Also, you might need to turn off the wifi power management in /etc/networks/interfaces.  Add
+```
+wireless-power off
+```
+to the wlan{0..4} entry.
+
+Good read on the subject.
+```
+http://raspberrypi.stackexchange.com/questions/4120/how-to-automatically-reconnect-wifi/5121#5121
+```
 
 ## REST Endpoints
 
