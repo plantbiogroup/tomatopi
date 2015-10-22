@@ -2,6 +2,15 @@
 ## Analyze what needs to be done.
 import datetime
 
+actual_temperature_file='/tmp/actual_temperature'
+actual_humidity_file='/tmp/actual_humudity'
+desired_temperature_file='/tmp/desired_temperature'
+desired_humidity_file='/tmp/desired_humudity'
+desired_relay_file='/tmp/desired_relay'
+desired_light_on_file='/tmp/desired_light_on'
+desired_light_off_file='/tmp/desired_light_off'
+
+
 now = datetime.datetime.now()
 ## Relay 1, light
 try:
@@ -21,12 +30,45 @@ except:
     pass
 
 if light_on < now and now < light_off:
-    print "/tmp/desired_relay1 on"
+    with open(/tmp/desired_relay1, 'w') as f:
+        f.write('on')
 else:
-    print "/tmp/desired_relay1 off"
+    with open(/tmp/desired_relay1, 'w') as f:
+        f.write('off')
 
 ## Relay 2 Heat
+try:
+    with open(desired_temperature_file, 'r') as f:
+        desired_temperature = f.read().strip()
+
+except:
+    pass
+
+
+if desired_temperature - 2 < temp and now < desired_temperature + 2:
+    with open(/tmp/desired_relay2, 'w') as f:
+        f.write('on')
+else:
+    with open(/tmp/desired_relay2, 'w') as f:
+        f.write('off')
+
 
 ## Relay 3 Humidity
+try:
+    with open(desired_humidity_file, 'r') as f:
+        desired_humidity = f.read().strip()
+
+except:
+    pass
+
+
+if desired_humidity - 5 < temp and now < desired_humidity + 5:
+    with open(/tmp/desired_relay3, 'w') as f:
+        f.write('on')
+else:
+    with open(/tmp/desired_relay3, 'w') as f:
+        f.write('off')
+
+
 
 ## Relay 4 CO2

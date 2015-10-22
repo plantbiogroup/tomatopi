@@ -9,6 +9,8 @@ humidity=None
 
 desired_measurements='/tmp/measurements'
 desired_relay_file='/tmp/desired_relay'
+actual_temperature_file='/tmp/actual_temperature'
+actual_humidity_file='/tmp/actual_humudity'
 
 ## Make an actual temp and humidity read
 def read_temp():
@@ -29,12 +31,6 @@ def read_temp():
     ## to register the latest humidity measurement
 
     humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
-    if temperature is not None:
-        with open('/tmp/temperature', 'w') as tmp:
-            tmp.write('%0.1f' % (temperature))
-    if humidity is not None:
-        with open('/tmp/humidity', 'w') as tmp:
-            tmp.write('%0.1f' % (humidity))
 
 ## Make up random crap for test purposes
 def makeup_temp():
@@ -51,6 +47,13 @@ def writeout():
     ## The format is:
     ## YYYY-MM-DDThh:mm:ss temperature humidity
 
+    if temperature is not None:
+        with open(actual_temperature_file, 'w') as tmp:
+            tmp.write('%0.1f' % (temperature))
+    if humidity is not None:
+        with open(actual_humidity_file, 'w') as tmp:
+            tmp.write('%0.1f' % (humidity))
+
     for i in range(1,9):
         try:
             with open('%s%d' % (desired_relay_file,i), 'r') as f:
@@ -60,7 +63,7 @@ def writeout():
 
     if temperature is not None and humidity is not None:
         with open(desired_measurements, 'a') as tmp:
-            tmp.write('%s,%0.1f,%0.1f,%d,%d,%d,%d,%d,%d,%d,%d\n' %
+            tmp.write('%s,%0.1f,%0.1f,%s,%s,%s,%s,%s,%s,%s,%s\n' %
                       (time.strftime("%FT%T"),
                        temperature,
                        humidity,
