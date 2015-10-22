@@ -46,6 +46,7 @@ to the wlan{0..4} entry.
 Good read on the subject.
 ```
 http://raspberrypi.stackexchange.com/questions/4120/how-to-automatically-reconnect-wifi/5121#5121
+http://raspberrypi.stackexchange.com/questions/6957/how-to-disable-raspberry-pi-power-management
 ```
 
 ## REST Endpoints
