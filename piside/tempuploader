@@ -14,13 +14,18 @@ import urllib
 desired_temperature_file='/tmp/desired_temperature'
 desired_humidity_file='/tmp/desired_humudity'
 desired_relay_file='/tmp/desired_relay'
-desired_light_on_file='/tmp/desired_light_on'
-desired_light_off_file='/tmp/desired_light_off'
+desired_light_file='/tmp/desired_light'
 desired_measurements='/tmp/measurements'
 
 outbuf = StringIO.StringIO()
 
 field = {}
+
+def set_hour_minute(timestring):
+    now=datetime.datetime.now()
+    hour, minute, second = timestring.split(':')
+    dt = datetime.datetime(now.year, now.month, now.day, int(hour), int(minute))
+    return time.mktime(dt.timetuple())
 
 def report_measurements(endpoint):
     ## Get the data collected so far
@@ -56,16 +61,18 @@ def report_measurements(endpoint):
     desired_light_off=vals['desired_light_off']
 
     with open(desired_temperature_file, 'w') as f:
-        f.write( '%0.1f' % (desired_temperature))
+        ## Write min and max
+        f.write( '%0.1f\n' % (desired_temperature - 2.0))
+        f.write( '%0.1f\n' % (desired_temperature + 2.0))
 
     with open(desired_humidity_file, 'w') as f:
-        f.write( '%0.1f' % (desired_humidity))
+        ## Write min and max
+        f.write( '%0.1f' % (desired_humidity - 5.0))
+        f.write( '%0.1f' % (desired_humidity + 5.0))
 
-    with open(desired_light_on_file, 'w') as f:
-        f.write( '%s' % (desired_light_on))
-
-    with open(desired_light_off_file, 'w') as f:
-        f.write( '%s' % (desired_light_off))
+    with open(desired_light_file, 'w') as f:
+        f.write( '%f' % (set_hour_minute(desired_light_on)))
+        f.write( '%f' % (set_hour_minute(desired_light_off)))
 
     with open(desired_measurements, 'w') as f:
         f.write( '' )               # Clear measurements

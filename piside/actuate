@@ -62,11 +62,7 @@ def set_pin(relay_num, desired):
     elif desired == 'on':
         GPIO.output(pin, GPIO.HIGH)
     else:
-        try:
-            # Sleep X milliseconds, but no more than 60 seconds
-            millisec=(int(iopin) % 6000) / 1000.0
-        except:
-            pass
+        print "Error: unrecognized relay mode: %s" % (desired)
 
 if __name__ == '__main__':
     GPIO.setmode(GPIO.BOARD)

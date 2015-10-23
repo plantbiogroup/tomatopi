@@ -7,68 +7,47 @@ actual_humidity_file='/tmp/actual_humudity'
 desired_temperature_file='/tmp/desired_temperature'
 desired_humidity_file='/tmp/desired_humudity'
 desired_relay_file='/tmp/desired_relay'
-desired_light_on_file='/tmp/desired_light_on'
-desired_light_off_file='/tmp/desired_light_off'
-
+desired_light_file='/tmp/desired_light'
 
 now = datetime.datetime.now()
+
+def num(s):
+    try:
+        return int(s)
+    except ValueError:
+        return float(s)
+
+def set_relay(file, value):
+    with open(file, 'w') as f:
+        f.write(value)
+
+def maintain_range(desiredfile, actualfile, relayfile):
+    '''Keep a value within a range.'''
+    try:
+        with open(actualfile, 'r') as f:
+            actual = f.read().strip()
+    except:
+        return None             # No actual value.  Abort
+    try:
+        with open(desiredfile, 'r') as f:
+            minimum = num(f.readline().strip())
+            maximum = num(f.readline().strip())
+    except:
+        return None             # No desired value.  Abort
+    
+    if (actual < minimum):
+        set_relay(relayfile, 'on')
+    elif actual > maximum:
+        set_relay(relayfile, 'off')
+
 ## Relay 1, light
-try:
-    with open(desired_light_on_file, 'r') as f:
-        desired_light_on = f.read()
-        on_h, on_min, on_sec = desired_light_on.split(':')
-        light_on = desired_light_on.replace(hour=on_h, minute=on_min, second=on_sec)
-except:
-    pass
-
-try:
-    with open(desired_light_off_file, 'r') as f:
-        desired_light_off = f.read()
-        off_h, off_min, off_sec = desired_light_off.split(':')
-        light_off = desired_light_off.replace(hour=off_h, minute=off_min, secoffd=off_sec)
-except:
-    pass
-
-if light_on < now and now < light_off:
-    with open(/tmp/desired_relay1, 'w') as f:
-        f.write('on')
-else:
-    with open(/tmp/desired_relay1, 'w') as f:
-        f.write('off')
+maintain_range(desired_light_file, time.time(), '/tmp/desired_relay1'):
 
 ## Relay 2 Heat
-try:
-    with open(desired_temperature_file, 'r') as f:
-        desired_temperature = f.read().strip()
-
-except:
-    pass
-
-
-if desired_temperature - 2 < temp and now < desired_temperature + 2:
-    with open(/tmp/desired_relay2, 'w') as f:
-        f.write('on')
-else:
-    with open(/tmp/desired_relay2, 'w') as f:
-        f.write('off')
-
+maintain_range(desired_temperature_file, actual_temperature_file, '/tmp/desired_relay2'):
 
 ## Relay 3 Humidity
-try:
-    with open(desired_humidity_file, 'r') as f:
-        desired_humidity = f.read().strip()
-
-except:
-    pass
-
-
-if desired_humidity - 5 < temp and now < desired_humidity + 5:
-    with open(/tmp/desired_relay3, 'w') as f:
-        f.write('on')
-else:
-    with open(/tmp/desired_relay3, 'w') as f:
-        f.write('off')
-
-
+maintain_range(desired_humidity_file, actual_humidity_file, '/tmp/desired_relay3'):
 
 ## Relay 4 CO2
+# maintain_range(desired_co2_file, actual_co2_file, '/tmp/desired_relay4'):
