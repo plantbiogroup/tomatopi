@@ -1,6 +1,7 @@
 #!/usr/bin/python
 ## Analyze what needs to be done.
 import datetime
+import time
 
 actual_temperature_file='/tmp/actual_temperature'
 actual_humidity_file='/tmp/actual_humudity'
