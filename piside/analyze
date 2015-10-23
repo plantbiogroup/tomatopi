@@ -41,13 +41,13 @@ def maintain_range(desiredfile, actualfile, relayfile):
         set_relay(relayfile, 'off')
 
 ## Relay 1, light
-maintain_range(desired_light_file, time.time(), '/tmp/desired_relay1'):
+maintain_range(desired_light_file, time.time(), '/tmp/desired_relay1')
 
 ## Relay 2 Heat
-maintain_range(desired_temperature_file, actual_temperature_file, '/tmp/desired_relay2'):
+maintain_range(desired_temperature_file, actual_temperature_file, '/tmp/desired_relay2')
 
 ## Relay 3 Humidity
-maintain_range(desired_humidity_file, actual_humidity_file, '/tmp/desired_relay3'):
+maintain_range(desired_humidity_file, actual_humidity_file, '/tmp/desired_relay3')
 
 ## Relay 4 CO2
-# maintain_range(desired_co2_file, actual_co2_file, '/tmp/desired_relay4'):
+# maintain_range(desired_co2_file, actual_co2_file, '/tmp/desired_relay4')
