@@ -144,9 +144,10 @@
     </div> <!-- container -->
 
     <div class="container">
+      <h2>Daily Data</h2>
       <div class="ambient-left">
         <h3>Temperature</h3>
-        {% for graph in graphs %}
+        {% for graph in dailytemps %}
         <h4>{{ graph }}</h4>
         <a href="/static/daily/temp/{{ graph }}">
           <img class="ambient-graph" src="/static/daily/temp/{{ graph }}">
@@ -156,10 +157,33 @@
 
       <div class="ambient-right">
         <h3>Humidity</h3>
-        {% for graph in graphs %}
+        {% for graph in dailyhumidities %}
         <h4>{{ graph }}</h4>
-        <a href="/static/daily/temp/{{ graph }}">
-          <img class="ambient-graph" src="/static/daily/temp/{{ graph }}">
+        <a href="/static/daily/humidity/{{ graph }}">
+          <img class="ambient-graph" src="/static/daily/humidity/{{ graph }}">
+        </a>
+        {% endfor %}
+      </div> <!-- ambient-right -->
+    </div>
+
+    <div class="container">
+      <h2>Weekly Data</h2>
+      <div class="ambient-left">
+        <h3>Temperature</h3>
+        {% for graph in weeklytemps %}
+        <h4>{{ graph }}</h4>
+        <a href="/static/weekly/temp/{{ graph }}">
+          <img class="ambient-graph" src="/static/weekly/temp/{{ graph }}">
+        </a>
+        {% endfor %}
+      </div> <!-- ambient-left -->
+
+      <div class="ambient-right">
+        <h3>Humidity</h3>
+        {% for graph in weeklyhumidities %}
+        <h4>{{ graph }}</h4>
+        <a href="/static/weekly/humidity/{{ graph }}">
+          <img class="ambient-graph" src="/static/weekly/humidity/{{ graph }}">
         </a>
         {% endfor %}
       </div> <!-- ambient-right -->

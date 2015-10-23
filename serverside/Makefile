@@ -1,18 +1,17 @@
-CRONS=/etc/cron.daily/plt.humidity.daily \
-      /etc/cron.daily/plt.temperature.daily
+CRONS=/etc/cron.hourly/plothourly \
+      /etc/cron.daily/plotdaily
+
 clean:
 	find . -name \*~ -delete
 
 all: $(CRONS)
-	mkdir -p daily/humidity
-	mkdir -p daily/temp
 
-/etc/cron.hourly/plt.humidity.hourly: etc/plt.humidity.hourly
+/etc/cron.hourly/plothourly: etc/plothourly
 	sudo cp $^ $@
+	chmod 755 $@
+	chown root.root $@
 
-/etc/cron.hourly/plt.temp.hourly: etc/plt.temp.hourly
+/etc/cron.daily/plotdaily: etc/plotdaily
 	sudo cp $^ $@
-
-/etc/cron.daily/plt.temp.daily: etc/plt.temp.daily
-	sudo cp $^ $@
-
+	chmod 755 $@
+	chown root.root $@

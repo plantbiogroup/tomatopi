@@ -9,6 +9,8 @@ from flask import render_template
 from flask import request
 from flask import session
 from flask import url_for
+from os import listdir
+from os.path import isfile, join
 import datetime
 import os
 import os.path
@@ -266,7 +268,19 @@ def biodome():
         file = "/static/picture.jpg"
     else:
         file = "/static/default.png"
-    graphs = ["2015-10-14.png", "2015-10-15.png", "2015-10-16.png"]
+
+    dailytempdir = 'static/daily/temp/'
+    dailytemps = [ f for f in listdir(dailytempdir) if isfile(join(dailytempdir,f)) ]
+
+    dailyhumiditiedir = 'static/daily/humidity/'
+    dailyhumidities = [ f for f in listdir(dailyhumiditiedir) if isfile(join(dailyhumiditiedir,f)) ]
+
+    weeklytempdir = 'static/weekly/temp/'
+    weeklytemps = [ f for f in listdir(weeklytempdir) if isfile(join(weeklytempdir,f)) ]
+
+    weeklyhumiditiedir = 'static/weekly/humidity/'
+    weeklyhumidities = [ f for f in listdir(weeklyhumiditiedir) if isfile(join(weeklyhumiditiedir,f)) ]
+
     return render_template('biodome.html',
                            defaultlight_on=defaultlight_on,
                            defaultlight_off=defaultlight_off,
@@ -280,7 +294,10 @@ def biodome():
                            actual_humidity=actual_humidity,
                            ifconfig_data=ifconfig_data,
                            file=file,
-                           graphs=graphs,
+                           dailytemps=dailytemps,
+                           dailyhumidities=dailyhumidities,
+                           weeklytemps=weeklytemps,
+                           weeklyhumidities=weeklyhumidities,
                            relay=relay)
 
 
