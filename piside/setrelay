@@ -12,7 +12,7 @@ GPIO.setmode(GPIO.BOARD)
 pinList = [12, 16, 18, 22, 32, 38, 37, 35]
 
 if __name__ == '__main__':
-    if int(sys.argv[1]) > 0 and int(sys.argv[1]) < 4 :
+    if int(sys.argv[1]) >= 1 and int(sys.argv[1]) <= 4 :
         i = pinList[int(sys.argv[1])-1]
     if sys.argv[2] == 'on':
         GPIO.setup(i, GPIO.OUT)
