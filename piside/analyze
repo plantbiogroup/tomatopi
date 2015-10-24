@@ -1,5 +1,18 @@
 #!/usr/bin/python
-## Analyze what needs to be done.
+#
+#   = = A N A L Y Z E = =
+#
+# This module compares an actual value to
+# a minimum value and a maximum value.
+# The actual value is stored in a file.
+# The minimum and the maximum values ar stored in a
+# two line file.  The minimum on the firs line.  The
+# maximum on the second line.
+# If the actual value falls below the minimum value,
+# 'on' is written to the desired_relay_file.
+# If the actual value rises above the maximum value,
+# 'off' is written to the desired_relay_file.
+
 import datetime
 import time
 
@@ -25,7 +38,7 @@ def set_relay(file, value):
         f.write(value)
 
 def maintain_range(desiredfile, actualfile, relayfile):
-    '''Keep a value within a range.'''
+    '''Actuate when desired value is outside of range.'''
     try:
         with open(actualfile, 'r') as f:
             actual = num(f.read().strip())
@@ -43,11 +56,30 @@ def maintain_range(desiredfile, actualfile, relayfile):
     elif actual > maximum:
         set_relay(relayfile, 'off')
 
+def within_range(desiredfile, actualfile, relayfile):
+    '''Actuate when actual value comes within desired range.'''
+    try:
+        with open(actualfile, 'r') as f:
+            actual = num(f.read().strip())
+    except:
+        return None             # No actual value.  Abort
+    try:
+        with open(desiredfile, 'r') as f:
+            minimum = num(f.readline().strip())
+            maximum = num(f.readline().strip())
+    except:
+        return None             # No desired value.  Abort
+    
+    if (actual >= minimum):
+        set_relay(relayfile, 'on')
+    elif actual <= maximum:
+        set_relay(relayfile, 'off')
+
 ## Relay 1, light
 with open('/tmp/now', 'w') as f:
     f.write("%f\n" % (time.time()))
 
-maintain_range(desired_light_file, '/tmp/now', '/tmp/desired_relay1')
+within_range(desired_light_file, '/tmp/now', '/tmp/desired_relay1')
 
 ## Relay 2 Heat
 maintain_range(desired_temperature_file, actual_temperature_file, '/tmp/desired_relay2')
@@ -56,4 +88,4 @@ maintain_range(desired_temperature_file, actual_temperature_file, '/tmp/desired_
 maintain_range(desired_humidity_file, actual_humidity_file, '/tmp/desired_relay3')
 
 ## Relay 4 CO2
-# maintain_range(desired_co2_file, actual_co2_file, '/tmp/desired_relay4')
+maintain_range(desired_co2_file, actual_co2_file, '/tmp/desired_relay4')
