@@ -87,13 +87,13 @@ def reset_to_default():
     try:
         desired_light_on=defaultlight_on
         with open(desired_light_on_file, 'w') as f:
-            f.write('%0.1f' % (defaultlight_on))
+            f.write('%s' % (str(defaultlight_on)))
     except:
         str+=' Light_on not reset'
     try:
         desired_light_off=defaultlight_off
         with open(desired_light_off_file, 'w') as f:
-            f.write('%0.1f' % (defaultlight_off))
+            f.write('%s' % (str(defaultlight_off)))
     except:
         str+=' Light_off not reset'
     return str
@@ -140,8 +140,8 @@ def set_measurements():
         print "val [%d] = %s" %(i, val[i])
     parameters = {'desired_temperature' : desired_temperature,
                   'desired_humidity' : desired_humidity,
-                  'desired_light_on' : 5,
-                  'desired_light_off' : 4,
+                  'desired_light_on' : str(desired_light_on),
+                  'desired_light_off': str(desired_light_off) ,
                   'relays' :val }
 
     return jsonify( parameters )
