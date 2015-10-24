@@ -69,12 +69,12 @@ def report_measurements(endpoint):
 
     with open(desired_humidity_file, 'w') as f:
         ## Write min and max
-        f.write( '%0.1f' % (desired_humidity - 5.0))
-        f.write( '%0.1f' % (desired_humidity + 5.0))
+        f.write( '%0.1f\n' % (desired_humidity - 5.0))
+        f.write( '%0.1f\n' % (desired_humidity + 5.0))
 
     with open(desired_light_file, 'w') as f:
-        f.write( '%f' % (set_hour_minute(desired_light_on)))
-        f.write( '%f' % (set_hour_minute(desired_light_off)))
+        f.write( '%f\n' % (set_hour_minute(desired_light_on)))
+        f.write( '%f\n' % (set_hour_minute(desired_light_off)))
 
     with open(desired_measurements, 'w') as f:
         f.write( '' )               # Clear measurements
