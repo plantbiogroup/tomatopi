@@ -10,6 +10,8 @@ import os
 import pycurl
 import sys
 import urllib
+import datetime
+import time
 
 desired_temperature_file='/tmp/desired_temperature'
 desired_humidity_file='/tmp/desired_humudity'
