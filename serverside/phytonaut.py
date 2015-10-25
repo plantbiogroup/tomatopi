@@ -50,9 +50,6 @@ picture_file="static/picture.jpg"
 upload_picture_file="static/upload.jpg"
 ifconfig_data=None
 
-relay=range(1,9)
-val=range(1,10)
-
 
 def new_time(nt):
     if nt >= a_day:
@@ -61,6 +58,16 @@ def new_time(nt):
         return a_day - tdelta
     else:
         return nt
+
+def desired_relay(relay):
+    try:
+        with open('data/desired_relay%d' % (relay), 'r') as f:
+            val = f.read().strip()
+            if(val == '1'):
+                val = 'on'
+    except:
+        val ='off'
+
 
 ####################
 ## Reset to default
@@ -106,8 +113,9 @@ def set_measurements():
     global actual_temperature
     global actual_humidity
     global ifconfig_data
-    global relay
-    global val
+
+    relay = []
+
 
     # Process the data
     try:
@@ -119,7 +127,7 @@ def set_measurements():
         # Get the latest values
         t = data.splitlines()
         q = t[len(t) - 1]
-        lastmeasurement, actual_temperature, actual_humidity, relay[1], relay[2], relay[3], relay[4], relay[5], relay[6], relay[7], relay[8] = q.split(',')
+        lastmeasurement, actual_temperature, actual_humidity, relay[1], relay[2], relay[3], relay[4] = q.split(',')
     except:
         print "measurement -> %s" % (data)
 
@@ -131,18 +139,13 @@ def set_measurements():
     except:
         pass
 
-    for i in range(1,9):
-        try:
-            with open('data/desired_relay%d' % (i), 'r') as f:
-                val[i]=f.read().strip()
-        except:
-            val[i]='off'
-        print "val [%d] = %s" %(i, val[i])
     parameters = {'desired_temperature' : desired_temperature,
                   'desired_humidity' : desired_humidity,
                   'desired_light_on' : str(desired_light_on),
-                  'desired_light_off': str(desired_light_off) ,
-                  'relays' :val }
+                  'desired_light_off': str(desired_light_off)
+    }
+    for i in range(1,5):
+        parameters["desired_relay%d" % (i)] = desired_relay(i)
 
     return jsonify( parameters )
 
