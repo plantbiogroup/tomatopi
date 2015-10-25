@@ -38,11 +38,13 @@ import RPi.GPIO as GPIO
 
 max_relay=4
 
+desired_relay_file = '/tmp/desired_relay'
+
 def get_desired(relay_num):
     if relay_num < 1 or relay_num > max_relay:
         return 'off'
     try:
-        with open('/tmp/desired_relay%d' % (relay_num), 'r') as f:
+        with open('%s%d' % (desired_relay_file, relay_num), 'r') as f:
             val=f.read().strip()
     except:
         val = 'off'
