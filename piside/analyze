@@ -27,12 +27,6 @@ desired_light_file='/tmp/desired_light'
 
 now = datetime.datetime.now()
 
-def num(s):
-    try:
-        return int(s)
-    except ValueError:
-        return float(s)
-
 def set_relay(file, value):
     with open(file, 'w') as f:
         f.write(value)

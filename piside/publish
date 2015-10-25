@@ -28,6 +28,7 @@ outbuf = StringIO.StringIO()
 field = {}
 max_relay = 4
 
+
 def get_desired(relay_num):
     if relay_num < 1 or relay_num > max_relay:
         return 'off'
@@ -46,21 +47,18 @@ def set_hour_minute(timestring):
 
 def report_measurements(endpoint):
     ## Get the data collected so far
-    try:
-        with open(actual_temperature_file, 'r') as f:
-            temperature = f.read()
-        with open(actual_humidity_file, 'r') as f:
-            humidity = f.read()
+    with open(actual_temperature_file, 'r') as f:
+        temperature = f.read()
+    with open(actual_humidity_file, 'r') as f:
+        humidity = f.read()
 
-        buf = "%s,%0.1f,%0.1f" % (time.strftime("%FT%T"),
-                                  temperature,
-                                  humidity)
-        for relay in range(1,max_relay+1):
-            buf += ",%s" % (get_desired(relay))
+    buf = "%s,%s,%s" % (time.strftime("%FT%T"),
+                              temperature,
+                              humidity)
+    for relay in range(1,max_relay+1):
+        buf += ",%s" % (get_desired(relay))
 
-        field['data']= buf
-    except:
-        pass
+    field['data']= buf
 
     ## Get the ifconfig for ease of use
     try:
