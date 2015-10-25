@@ -79,7 +79,6 @@ def report_measurements(endpoint):
 
     line = outbuf.getvalue()
     vals = json.loads(line)
-    print vals
     desired_temperature=vals['desired_temperature']
     desired_humidity=vals['desired_humidity']
     desired_light_on=vals['desired_light_on']
