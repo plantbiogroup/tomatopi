@@ -26,7 +26,7 @@ actual_co2_file='/tmp/actual_co2'
 outbuf = StringIO.StringIO()
 
 field = {}
-max_relay = 8
+max_relay = 4
 
 def get_desired(relay_num):
     if relay_num < 1 or relay_num > max_relay:
@@ -81,6 +81,7 @@ def report_measurements(endpoint):
 
     line = outbuf.getvalue()
     vals = json.loads(line)
+    print vals
     desired_temperature=vals['desired_temperature']
     desired_humidity=vals['desired_humidity']
     desired_light_on=vals['desired_light_on']
@@ -100,15 +101,15 @@ def report_measurements(endpoint):
         f.write( '%f\n' % (set_hour_minute(desired_light_on)))
         f.write( '%f\n' % (set_hour_minute(desired_light_off)))
 
-    with open(desired_measurements, 'w') as f:
-        f.write( '' )               # Clear measurements
-
-
     for i in range(1,max_relay+1):
         with open('%s%d' % (desired_relay_file, i), 'w') as f:
-            f.write(vals['relays'][i])
+            v = vals["desired_relay%d" % (i)]
+            if v == None:
+                f.write('off')
+            else:
+                f.write(v)
 
-if __name__ == '__main__':
+if __name__ ==  '__main__':
     # If the first arg is 'test' we fake the data
     if len(sys.argv) > 1 and sys.argv[1] == 'test':
         report_measurements('http://127.0.0.1/measurements')
