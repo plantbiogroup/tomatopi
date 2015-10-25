@@ -34,7 +34,7 @@ defaulttemperature = 20
 desired_temperature = defaulttemperature
 desired_temperature_file="desired_temperature"
 
-defaulthumidity = 80
+defaulthumidity = 40
 desired_humidity=defaulthumidity
 desired_humidity_file="desired_humidity"
 
@@ -300,8 +300,8 @@ def biodome():
                            dailytemps=dailytemps,
                            dailyhumidities=dailyhumidities,
                            weeklytemps=weeklytemps,
-                           weeklyhumidities=weeklyhumidities,
-                           relay=relay)
+                           weeklyhumidities=weeklyhumidities
+                           )
 
 
 ####################
