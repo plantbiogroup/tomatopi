@@ -1,6 +1,6 @@
 BINS=/usr/local/bin/analyze \
 	/usr/local/bin/actuate \
-	/usr/local/bin/temperature \
+	/usr/local/bin/measure \
 	/usr/local/bin/cam \
 	/usr/local/bin/cycle \
 	/etc/cron.d/campart \
@@ -23,7 +23,7 @@ BINS=/usr/local/bin/analyze \
 	chmod 755 $@
 	chown root.root $@
 
-/usr/local/bin/temperature: temperature
+/usr/local/bin/measure: measure
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@

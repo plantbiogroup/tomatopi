@@ -1,6 +1,6 @@
 #!/bin/bash
 
 ## Run the actuation cycle
-/usr/local/bin/temperature test
+/usr/local/bin/measure test
 /usr/local/bin/analyze
 /usr/local/bin/actuate
