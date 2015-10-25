@@ -53,10 +53,10 @@ BINS=/usr/local/bin/analyze \
 	chmod 755 $@
 	chown root.root $@
 
-install: ${BINS}
+install: $(BINS)
 
 uninstall:
-	sudo rm ${BINS}
+	sudo rm $(BINS)
 
 clean:
 	find . -name \*~ -delete

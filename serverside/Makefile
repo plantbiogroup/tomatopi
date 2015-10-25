@@ -4,14 +4,17 @@ CRONS=/etc/cron.hourly/plothourly \
 clean:
 	find . -name \*~ -delete
 
-all: $(CRONS)
+install: $(CRONS)
+
+uninstall:
+	sudo rm $(CRONS)
 
 /etc/cron.hourly/plothourly: etc/plothourly
 	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	sudo chmod 755 $@
+	sudo chown root.root $@
 
 /etc/cron.daily/plotdaily: etc/plotdaily
 	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	sudo chmod 755 $@
+	sudo chown root.root $@
