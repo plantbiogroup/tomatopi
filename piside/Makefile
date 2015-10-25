@@ -56,9 +56,10 @@ BINS=/usr/local/bin/analyze \
 install: $(BINS)
 
 uninstall:
-	sudo rm $(BINS)
-	sudo rm /tmp/actual\*
-	sudo rm /tmp/desired\*
+	- sudo rm $(BINS)
+	- sudo rm /tmp/actual*
+	- sudo rm /tmp/desired*
+	- sudo rm /tmp/measurements
 
 clean:
 	find . -name \*~ -delete
