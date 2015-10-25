@@ -56,7 +56,7 @@ def maintain_range(desiredfile, actualfile, relayfile):
     elif actual > maximum:
         set_relay(relayfile, 'off')
 
-def within_range(desiredfile, actualfile, relayfile):
+def on_within_range(desiredfile, actualfile, relayfile):
     '''Actuate when actual value comes within desired range.'''
     try:
         with open(actualfile, 'r') as f:
@@ -70,16 +70,36 @@ def within_range(desiredfile, actualfile, relayfile):
     except:
         return None             # No desired value.  Abort
     
-    if (actual >= minimum):
+    if (actual >= minimum) and (actual <= maximum):
         set_relay(relayfile, 'on')
-    elif actual <= maximum:
+    else:
         set_relay(relayfile, 'off')
+
+def on_outside_range(desiredfile, actualfile, relayfile):
+    '''Actuate when actual value comes within desired range.'''
+    try:
+        with open(actualfile, 'r') as f:
+            actual = num(f.read().strip())
+    except:
+        return None             # No actual value.  Abort
+    try:
+        with open(desiredfile, 'r') as f:
+            minimum = num(f.readline().strip())
+            maximum = num(f.readline().strip())
+    except:
+        return None             # No desired value.  Abort
+    
+    if (actual <= minimum) or (actual >= maximum):
+        set_relay(relayfile, 'on')
+    else:
+        set_relay(relayfile, 'off')
+
 
 ## Relay 1, light
 with open('/tmp/now', 'w') as f:
     f.write("%f\n" % (time.time()))
 
-within_range(desired_light_file, '/tmp/now', '/tmp/desired_relay1')
+on_within_range(desired_light_file, '/tmp/now', '/tmp/desired_relay1')
 
 ## Relay 2 Heat
 maintain_range(desired_temperature_file, actual_temperature_file, '/tmp/desired_relay2')
