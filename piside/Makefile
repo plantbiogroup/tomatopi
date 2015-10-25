@@ -57,6 +57,8 @@ install: $(BINS)
 
 uninstall:
 	sudo rm $(BINS)
+	sudo rm /tmp/actual\*
+	sudo rm /tmp/desired\*
 
 clean:
 	find . -name \*~ -delete
