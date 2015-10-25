@@ -50,6 +50,10 @@ picture_file="static/picture.jpg"
 upload_picture_file="static/upload.jpg"
 ifconfig_data=None
 
+relay1='off'
+relay2='off'
+relay3='off'
+relay4='off'
 
 def new_time(nt):
     if nt >= a_day:
@@ -123,11 +127,11 @@ def set_measurements():
         print "Data -> %s" % (data)
         # Dump data into the measurements file
         with open(measurements_file, 'a') as f:
-            f.write(data)
+            f.write("%s\n" % (data))
         # Get the latest values
         t = data.splitlines()
         q = t[len(t) - 1]
-        lastmeasurement, actual_temperature, actual_humidity, relay[1], relay[2], relay[3], relay[4] = q.split(',')
+        lastmeasurement, actual_temperature, actual_humidity, relay1, relay2, relay3, relay4 = q.split(',')
     except:
         print "measurement -> %s" % (data)
 
@@ -267,6 +271,10 @@ def get_lastmeasurement():
 ## biodome
 @app.route('/biodome', methods=['GET'])
 def biodome():
+    global relay1
+    global relay2
+    global relay3
+    global relay4
     if os.path.isfile("static/picture.jpg") and os.stat("static/picture.jpg").st_size != 0:
         file = "/static/picture.jpg"
     else:
@@ -300,7 +308,11 @@ def biodome():
                            dailytemps=dailytemps,
                            dailyhumidities=dailyhumidities,
                            weeklytemps=weeklytemps,
-                           weeklyhumidities=weeklyhumidities
+                           weeklyhumidities=weeklyhumidities,
+                           relay1=relay1,
+                           relay2=relay2,
+                           relay3=relay3,
+                           relay4=relay4
                            )
 
 
