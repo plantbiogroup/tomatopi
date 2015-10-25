@@ -9,49 +9,49 @@ BINS=/usr/local/bin/analyze \
 	/etc/cron.hourly/camuploader
 
 /usr/local/bin/cycle: cycle
-	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	- sudo cp $^ $@
+	- sudo chmod 755 $@
+	- sudo chown root.root $@
 
 /usr/local/bin/analyze: analyze
-	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	- sudo cp $^ $@
+	- sudo chmod 755 $@
+	- sudo chown root.root $@
 
 /usr/local/bin/actuate: actuate
-	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	- sudo cp $^ $@
+	- sudo chmod 755 $@
+	- sudo chown root.root $@
 
 /usr/local/bin/measure: measure
-	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	- sudo cp $^ $@
+	- sudo chmod 755 $@
+	- sudo chown root.root $@
 
 /usr/local/bin/cam: cam
-	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	- sudo cp $^ $@
+	- sudo chmod 755 $@
+	- sudo chown root.root $@
 
 /etc/cron.d/campart: campart
-	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	- sudo cp $^ $@
+	- sudo chmod 755 $@
+	- sudo chown root.root $@
 
 /etc/cron.d/cyclepart: cyclepart
-	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	- sudo cp $^ $@
+	- sudo chmod 755 $@
+	- sudo chown root.root $@
 
 /etc/cron.hourly/publish: publish
-	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	- sudo cp $^ $@
+	- sudo chmod 755 $@
+	- sudo chown root.root $@
 
 /etc/cron.hourly/camuploader: camuploader
-	sudo cp $^ $@
-	chmod 755 $@
-	chown root.root $@
+	- sudo cp $^ $@
+	- sudo chmod 755 $@
+	- sudo chown root.root $@
 
 install: $(BINS)
 
