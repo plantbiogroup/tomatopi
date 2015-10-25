@@ -55,5 +55,8 @@ BINS=/usr/local/bin/analyze \
 
 install: ${BINS}
 
+uninstall:
+	sudo rm ${BINS}
+
 clean:
 	find . -name \*~ -delete
