@@ -5,7 +5,7 @@ BINS=/usr/local/bin/analyze \
 	/usr/local/bin/cycle \
 	/etc/cron.d/campart \
 	/etc/cron.d/cyclepart \
-	/etc/cron.hourly/tempuploader \
+	/etc/cron.hourly/publish \
 	/etc/cron.hourly/camuploader
 
 /usr/local/bin/cycle: cycle
@@ -43,7 +43,7 @@ BINS=/usr/local/bin/analyze \
 	chmod 755 $@
 	chown root.root $@
 
-/etc/cron.hourly/tempuploader: tempuploader
+/etc/cron.hourly/publish: publish
 	sudo cp $^ $@
 	chmod 755 $@
 	chown root.root $@
