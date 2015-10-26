@@ -49,6 +49,12 @@ http://raspberrypi.stackexchange.com/questions/4120/how-to-automatically-reconne
 http://raspberrypi.stackexchange.com/questions/6957/how-to-disable-raspberry-pi-power-management
 ```
 
+About relays and relay drivers:
+```
+http://raspberrypihobbyist.blogspot.com/2012/09/gpio-output-relay-interface.html
+https://www.raspberrypi.org/forums/viewtopic.php?t=36225
+```
+
 ## REST Endpoints
 
 ### GET  /desired_temperature
