@@ -2,12 +2,13 @@ BINS=/usr/local/bin/analyze \
 	/usr/local/bin/actuate \
 	/usr/local/bin/measure \
 	/usr/local/bin/cam \
+	/usr/local/bin/camuploader \
 	/usr/local/bin/cycle \
-	/usr/local/bin/part \
+	/usr/local/bin/publish \
 	/etc/cron.d/campart \
 	/etc/cron.d/cyclepart \
-	/etc/cron.hourly/publishpart \
-	/etc/cron.hourly/camuploader
+	/etc/cron.d/publishpart \
+	/etc/cron.d/camuploaderpart
 
 /usr/local/bin/cycle: cycle
 	- sudo cp $^ $@
@@ -34,6 +35,11 @@ BINS=/usr/local/bin/analyze \
 	- sudo chmod 755 $@
 	- sudo chown root.root $@
 
+/usr/local/bin/camuploader: camuploader
+	- sudo cp $^ $@
+	- sudo chmod 755 $@
+	- sudo chown root.root $@
+
 /usr/local/bin/publish: publish
 	- sudo cp $^ $@
 	- sudo chmod 755 $@
@@ -54,7 +60,7 @@ BINS=/usr/local/bin/analyze \
 	- sudo chmod 755 $@
 	- sudo chown root.root $@
 
-/etc/cron.hourly/camuploader: camuploader
+/etc/cron.d/camuploaderpart: camuploaderpart
 	- sudo cp $^ $@
 	- sudo chmod 755 $@
 	- sudo chown root.root $@
