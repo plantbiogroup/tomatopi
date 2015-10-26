@@ -117,6 +117,10 @@ def set_measurements():
     global actual_temperature
     global actual_humidity
     global ifconfig_data
+    global relay1
+    global relay2
+    global relay3
+    global relay4
 
     relay = []
 
@@ -124,17 +128,12 @@ def set_measurements():
     # Process the data
     try:
         data = request.form.get('data')
-        print "Data -> %s" % (data)
         # Dump data into the measurements file
         with open(measurements_file, 'a') as f:
             f.write("%s\n" % (data))
-        # Get the latest values
-        t = data.splitlines()
-        q = t[len(t) - 1]
-        lastmeasurement, actual_temperature, actual_humidity, relay1, relay2, relay3, relay4 = q.split(',')
+        lastmeasurement, actual_temperature, actual_humidity, relay1, relay2, relay3, relay4 = data.split(',')
     except:
-        print "measurement -> %s" % (data)
-
+        pass
     try:
         ifconfig_data = request.form.get('ifconfig')
         print "IfConfig -> %s" % (ifconfig_data)
@@ -312,7 +311,8 @@ def biodome():
                            relay1=relay1,
                            relay2=relay2,
                            relay3=relay3,
-                           relay4=relay4
+                           relay4=relay4,
+                           lastmeasurement=lastmeasurement
                            )
 
 
