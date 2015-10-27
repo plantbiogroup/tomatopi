@@ -115,6 +115,18 @@
               </td>
               <td>{{ actual_humidity }}%</td>
             </tr>
+            <tr class="alt">
+              <td>CO2</td>
+              <td>{{ default_co2 }}%</td>
+              <td>
+                <form class="ambient" action="/desired_co2" method="post">
+                  <input type="submit" name="co2" value="inc">
+                  <input type="submit" name="co2" value="dec">
+                  {{ desired_co2 }}%
+                </form>
+              </td>
+              <td>{{ actual_co2 }}%</td>
+            </tr>
           </table>
           
           <table class="ambient">
@@ -141,7 +153,7 @@
             </tr>
             <tr>
               <td>4</td>
-              <td>humidity</td>
+              <td>CO2</td>
               <td>{{ relay4 }}</td>
             </tr>
           </table>
