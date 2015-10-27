@@ -1,0 +1,5 @@
+# Plot the hourly graph
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=jarl@thinkgland.com
+*/10 * * * * root /usr/local/bin/plothourly

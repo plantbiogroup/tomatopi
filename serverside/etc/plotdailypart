@@ -1,0 +1,5 @@
+# Plot the weekly graph
+SHELL=/bin/bash
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+MAILTO=jarl@thinkgland.com
+* */2 * * * root /usr/local/bin/plotdaily
