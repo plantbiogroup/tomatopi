@@ -45,10 +45,13 @@ ifconfig_file = "static/ifconfig"
 lastmeasurement=None
 actual_temperature=None
 actual_humidity=None
+actual_co2=None
 
 picture_file="static/picture.jpg"
 upload_picture_file="static/upload.jpg"
 ifconfig_data=None
+
+desired_co2=40
 
 relay1='off'
 relay2='off'
@@ -116,6 +119,7 @@ def set_measurements():
     global lastmeasurement
     global actual_temperature
     global actual_humidity
+    global actual_co2
     global ifconfig_data
     global relay1
     global relay2
@@ -128,32 +132,24 @@ def set_measurements():
     # Process the data
     try:
         data = request.form.get('data')
-        lastmeasurement,
-        actual_temperature,
-        actual_humidity,
-        relay1,
-        relay2,
-        relay3,
-        relay4 = data.split(',')
-
-        # Fakery
-        co2ppm = random.uniform(40.0, 50.0)
+        print data
+        lastmeasurement, actual_temperature, actual_humidity, actual_co2, relay1, relay2, relay3, relay4 = data.split(',')
+    
         # Dump data into the measurements file
         with open(measurements_file, 'a') as f:
             # f.write("%s\n" % (data))
-            f.write("%s\n" % (lastmeasurement,
+            f.write("%s,%s,%s,%s,%s,%s,%s,%s\n" % (lastmeasurement,
                               actual_temperature,
                               actual_humidity,
-                              co2ppm, # Fake value
+                              actual_co2, # Fake value
                               relay1,
                               relay2,
                               relay3,
                               relay4))
     except:
-        pass
+       pass
     try:
         ifconfig_data = request.form.get('ifconfig')
-        print "IfConfig -> %s" % (ifconfig_data)
         with open(ifconfig_file, 'w') as f:
             f.write(ifconfig_data)
     except:

@@ -15,6 +15,7 @@ import time
 
 desired_temperature_file='/tmp/desired_temperature'
 desired_humidity_file='/tmp/desired_humudity'
+desired_co2_file='/tmp/desired_co2'
 desired_relay_file='/tmp/desired_relay'
 desired_light_file='/tmp/desired_light'
 
@@ -47,14 +48,28 @@ def set_hour_minute(timestring):
 
 def report_measurements(endpoint):
     ## Get the data collected so far
-    with open(actual_temperature_file, 'r') as f:
-        temperature = f.read()
-    with open(actual_humidity_file, 'r') as f:
-        humidity = f.read()
+    try:
+        with open(actual_temperature_file, 'r') as f:
+            temperature = f.read()
+    except:
+        temperature = None
 
-    buf = "%s,%s,%s" % (time.strftime("%FT%T"),
-                              temperature,
-                              humidity)
+    try:
+        with open(actual_humidity_file, 'r') as f:
+            humidity = f.read()
+    except:
+        humidity = None
+
+    try:
+        with open(actual_co2_file, 'r') as f:
+            co2 = f.read()
+    except:
+        co2 = None
+
+    buf = "%s,%s,%s,%s" % (time.strftime("%FT%T"),
+                           temperature,
+                           humidity,
+                           co2)
     for relay in range(1,max_relay+1):
         buf += ",%s" % (get_desired(relay))
 
@@ -80,32 +95,45 @@ def report_measurements(endpoint):
 
     line = outbuf.getvalue()
     vals = json.loads(line)
-    desired_temperature=vals['desired_temperature']
-    desired_humidity=vals['desired_humidity']
-    desired_light_on=vals['desired_light_on']
-    desired_light_off=vals['desired_light_off']
 
-    with open(desired_temperature_file, 'w') as f:
-        ## Write min and max
-        f.write( '%0.1f\n' % (desired_temperature - 2.0))
-        f.write( '%0.1f\n' % (desired_temperature + 2.0))
+    if 'desired_temperature' in vals:
+        desired_temperature = vals['desired_temperature']
+        with open(desired_temperature_file, 'w') as f:
+            ## Write min and max
+            f.write( '%0.1f\n' % (desired_temperature - 2.0))
+            f.write( '%0.1f\n' % (desired_temperature + 2.0))
+        
+    if 'desired_humidity' in vals:
+        desired_humidity=vals['desired_humidity']
+        with open(desired_humidity_file, 'w') as f:
+            ## Write min and max
+            f.write( '%0.1f\n' % (desired_humidity - 5.0))
+            f.write( '%0.1f\n' % (desired_humidity + 5.0))
 
-    with open(desired_humidity_file, 'w') as f:
-        ## Write min and max
-        f.write( '%0.1f\n' % (desired_humidity - 5.0))
-        f.write( '%0.1f\n' % (desired_humidity + 5.0))
+    if 'desired_co2' in vals:
+        desired_co2=vals['desired_co2']
+        with open(desired_co2_file, 'w') as f:
+            ## Write min and max
+            f.write( '%0.1f\n' % (desired_co2 - 5.0))
+            f.write( '%0.1f\n' % (desired_co2 + 5.0))
 
-    with open(desired_light_file, 'w') as f:
-        f.write( '%f\n' % (set_hour_minute(desired_light_on)))
-        f.write( '%f\n' % (set_hour_minute(desired_light_off)))
+    if 'desired_light_on' in vals and 'desired_light_off' in vals:
+        desired_light_on=vals['desired_light_on']
+        desired_light_off=vals['desired_light_off']
+        with open(desired_light_file, 'w') as f:
+            f.write( '%f\n' % (set_hour_minute(desired_light_on)))
+            f.write( '%f\n' % (set_hour_minute(desired_light_off)))
 
     for i in range(1,max_relay+1):
-        with open('%s%d' % (desired_relay_file, i), 'w') as f:
-            v = vals["desired_relay%d" % (i)]
-            if v == None:
-                f.write('off')
-            else:
-                f.write(v)
+        try:
+            with open('%s%d' % (desired_relay_file, i), 'w') as f:
+                v = vals["desired_relay%d" % (i)]
+                if v == None:
+                    f.write('off')
+                else:
+                    f.write(v)
+        except:
+            pass
 
 if __name__ ==  '__main__':
     # If the first arg is 'test' we fake the data
