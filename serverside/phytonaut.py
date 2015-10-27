@@ -128,10 +128,27 @@ def set_measurements():
     # Process the data
     try:
         data = request.form.get('data')
+        lastmeasurement,
+        actual_temperature,
+        actual_humidity,
+        relay1,
+        relay2,
+        relay3,
+        relay4 = data.split(',')
+
+        # Fakery
+        co2ppm = random.uniform(40.0, 50.0)
         # Dump data into the measurements file
         with open(measurements_file, 'a') as f:
-            f.write("%s\n" % (data))
-        lastmeasurement, actual_temperature, actual_humidity, relay1, relay2, relay3, relay4 = data.split(',')
+            # f.write("%s\n" % (data))
+            f.write("%s\n" % (lastmeasurement,
+                              actual_temperature,
+                              actual_humidity,
+                              co2ppm, # Fake value
+                              relay1,
+                              relay2,
+                              relay3,
+                              relay4))
     except:
         pass
     try:
@@ -279,17 +296,11 @@ def biodome():
     else:
         file = "/static/default.png"
 
-    dailytempdir = 'static/daily/temp/'
-    dailytemps = [ f for f in listdir(dailytempdir) if isfile(join(dailytempdir,f)) ]
+    dailyvaldir = 'static/daily/'
+    dailyvals = [ f for f in listdir(dailyvaldir) if isfile(join(dailyvaldir,f)) ]
 
-    dailyhumiditiedir = 'static/daily/humidity/'
-    dailyhumidities = [ f for f in listdir(dailyhumiditiedir) if isfile(join(dailyhumiditiedir,f)) ]
-
-    weeklytempdir = 'static/weekly/temp/'
-    weeklytemps = [ f for f in listdir(weeklytempdir) if isfile(join(weeklytempdir,f)) ]
-
-    weeklyhumiditiedir = 'static/weekly/humidity/'
-    weeklyhumidities = [ f for f in listdir(weeklyhumiditiedir) if isfile(join(weeklyhumiditiedir,f)) ]
+    weeklyvaldir = 'static/weekly/'
+    weeklyvals = [ f for f in listdir(weeklyvaldir) if isfile(join(weeklyvaldir,f)) ]
 
     return render_template('biodome.html',
                            defaultlight_on=defaultlight_on,
@@ -304,10 +315,8 @@ def biodome():
                            actual_humidity=actual_humidity,
                            ifconfig_data=ifconfig_data,
                            file=file,
-                           dailytemps=dailytemps,
-                           dailyhumidities=dailyhumidities,
-                           weeklytemps=weeklytemps,
-                           weeklyhumidities=weeklyhumidities,
+                           dailyvals=dailyvals,
+                           weeklyvals=weeklyvals,
                            relay1=relay1,
                            relay2=relay2,
                            relay3=relay3,
