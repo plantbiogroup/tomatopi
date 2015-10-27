@@ -27,7 +27,7 @@ outbuf = StringIO.StringIO()
 
 field = {}
 max_relay = 4
-
+curl_timeout_ms = 3000
 
 def get_desired(relay_num):
     if relay_num < 1 or relay_num > max_relay:
@@ -69,6 +69,7 @@ def report_measurements(endpoint):
 
     c = pycurl.Curl()
     c.setopt(c.URL, endpoint)
+    c.setopt(pycurl.TIMEOUT_MS, curl_timeout_ms) # 
     c.setopt(c.POSTFIELDS, urllib.urlencode(field))
     c.setopt(pycurl.WRITEFUNCTION, outbuf.write)
     c.perform()

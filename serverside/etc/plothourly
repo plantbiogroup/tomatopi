@@ -1,8 +1,8 @@
 #!/bin/bash
 ## Every hour, plot a days worth of data
 
-# P=/home/ec2-user/tomatopi/serverside
-P=/home/jarl/ws/plantbiogroup/tomatopi/serverside
+P=/home/ec2-user/tomatopi/serverside
+# P=/home/jarl/ws/plantbiogroup/tomatopi/serverside
 
 NAME=`date +%Y-%m-%d`
 

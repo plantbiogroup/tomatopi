@@ -4,5 +4,5 @@
 ##  REMEMBER to add phytonaut to your etc hosts file
 ####################################################
 ## file.  Stuff the return value in the file ''response''
-/usr/bin/curl -s -X POST --data-binary @/tmp/pict.jpg http://phytonaut/picture > /dev/null 2>&1
+/usr/bin/curl -s -X POST --connect-timeout 5 --max-time 20 --data-binary @/tmp/pict.jpg http://phytonaut/picture > /dev/null 2>&1
 rm -f /tmp/pict.jpg > /dev/null 2>&1
