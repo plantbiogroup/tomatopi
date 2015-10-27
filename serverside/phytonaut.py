@@ -45,7 +45,11 @@ ifconfig_file = "static/ifconfig"
 lastmeasurement=None
 actual_temperature=None
 actual_humidity=None
+
+default_co2=40
 actual_co2=None
+desired_co2_file="desierd_co2"
+
 
 picture_file="static/picture.jpg"
 upload_picture_file="static/upload.jpg"
@@ -226,6 +230,20 @@ def set_temperature():
         pass
     return redirect(url_for('biodome'))
 
+@app.route('/desired_co2', methods=['POST'])
+def set_co2():
+    global desired_co2
+    try:
+        if request.form.get('co2') == 'inc':
+            desired_co2 += 1.0
+        elif request.form.get('co2') == 'dec':
+            desired_co2 -= 1.0
+        else:
+            desired_co2 = float(request.form.get('co2'))
+    except:
+        pass
+    return redirect(url_for('biodome'))
+
 @app.route('/desired_light_on', methods=['POST'])
 def set_light_on():
     global desired_light_on
@@ -309,6 +327,8 @@ def biodome():
                            desired_humidity=desired_humidity,
                            actual_temperature=actual_temperature,
                            actual_humidity=actual_humidity,
+                           default_co2=default_co2,
+                           actual_co2=actual_co2,
                            ifconfig_data=ifconfig_data,
                            file=file,
                            dailyvals=dailyvals,
