@@ -55,7 +55,7 @@ BINS=/usr/local/bin/analyze \
 	- sudo chmod 755 $@
 	- sudo chown root.root $@
 
-/etc/cron.hourly/publishpart: publishpart
+/etc/cron.d/publishpart: publishpart
 	- sudo cp $^ $@
 	- sudo chmod 755 $@
 	- sudo chown root.root $@
