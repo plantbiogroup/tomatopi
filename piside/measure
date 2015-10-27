@@ -8,9 +8,11 @@
 
 import time
 import sys
+import random
 
 temperature=None
 humidity=None
+co2=None
 
 actual_temperature_file='/tmp/actual_temperature'
 actual_humidity_file='/tmp/actual_humudity'
@@ -71,7 +73,6 @@ def writeout():
 if __name__ == '__main__':
     # If the first arg is 'test' we fake the data
     if len(sys.argv) > 1 and sys.argv[1] == 'test':
-        import random
         makeup_temp()               # Just make something up for testing.
         read_co2()
     else:
