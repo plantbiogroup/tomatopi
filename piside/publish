@@ -13,22 +13,9 @@ import urllib
 import datetime
 import time
 
-desired_temperature_file='/tmp/desired_temperature'
-desired_humidity_file='/tmp/desired_humudity'
-desired_co2_file='/tmp/desired_co2'
-desired_relay_file='/tmp/desired_relay'
-desired_light_file='/tmp/desired_light'
-
-actual_temperature_file='/tmp/actual_temperature'
-actual_humidity_file='/tmp/actual_humudity'
-actual_co2_file='/tmp/actual_co2'
-
-
 outbuf = StringIO.StringIO()
 
 field = {}
-max_relay = 4
-curl_timeout_ms = 3000
 
 def get_desired(relay_num):
     if relay_num < 1 or relay_num > max_relay:
@@ -135,9 +122,24 @@ def report_measurements(endpoint):
         except:
             pass
 
+### Configure
+Config = ConfigParser.ConfigParser()
+Config.read('/usr/local/bin/tomato.ini')
+
+actual_temperature_file = Config.get('files', 'actual_temperature_file')
+actual_humidity_file = Config.get('files', 'actual_humidity_file')
+actual_co2_file = Config.get('files', 'actual_co2_file')
+
+desired_temperature_file = Config.get('files', 'desired_temperature_file')
+desired_humidity_file = Config.get('files', 'desired_humidity_file')
+desired_co2_file = Config.get('files', 'desired_co2_file')
+desired_relay_file = Config.get('files', 'desired_relay_file')
+desired_light_file = Config.get('files', 'desired_light_file')
+
+max_relay = Config.get('relays', 'max_relay')
+
+endpoint = Config.get('server', 'endpoint')
+curl_timeout_ms = Config.get('server', 'curl_timeout_ms')
+
 if __name__ ==  '__main__':
-    # If the first arg is 'test' we fake the data
-    if len(sys.argv) > 1 and sys.argv[1] == 'test':
-        report_measurements('http://127.0.0.1/measurements')
-    else:
-        report_measurements('http://phytonaut/measurements')
+    report_measurements(endpoint)

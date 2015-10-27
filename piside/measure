@@ -9,23 +9,22 @@
 import time
 import sys
 import random
+import ConfigParser
 
 temperature=None
 humidity=None
 co2=None
 
-actual_temperature_file='/tmp/actual_temperature'
-actual_humidity_file='/tmp/actual_humudity'
-actual_co2_file='/tmp/actual_co2'
-
 def read_co2():
+    global co2
+
     co2=5.0 + (random.randint(0,5) / 10.0)
+    return co2
 
 ## Make an actual temp and humidity read
 def read_temp():
     global temperature
     global humidity
-    global co2
 
     ##  Possible sensors
     ##  Adafruit_DHT.DHT11
@@ -47,7 +46,6 @@ def read_temp():
 def makeup_temp():
     global temperature
     global humidity
-    global co2
 
     temperature=25.0 + (random.randint(0,50) / 10.0)
     humidity=50.0 + (random.randint(0,50) / 10.0)
@@ -69,6 +67,13 @@ def writeout():
         with open(actual_co2_file, 'w') as tmp:
             tmp.write('%0.1f' % (co2))
 
+
+Config = ConfigParser.ConfigParser()
+Config.read('/usr/local/bin/tomato.ini')
+
+actual_temperature_file = Config.get('files', 'actual_temperature_file')
+actual_humidity_file = Config.get('files', 'actual_humidity_file')
+actual_co2_file = Config.get('files', 'actual_co2_file')
 
 if __name__ == '__main__':
     # If the first arg is 'test' we fake the data

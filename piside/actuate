@@ -36,9 +36,6 @@
 # are activated.  Hence the "max_relay" parameter
 import RPi.GPIO as GPIO
 
-max_relay=4
-
-desired_relay_file = '/tmp/desired_relay'
 
 def get_desired(relay_num):
     if relay_num < 1 or relay_num > max_relay:
@@ -65,6 +62,10 @@ def set_pin(relay_num, desired):
         GPIO.output(pin, GPIO.HIGH)
     else:
         print "Error: unrecognized relay mode: %s" % (desired)
+
+
+desired_relay_file = '/tmp/desired_relay'
+max_relay = Config.get('relays', 'max_relay')
 
 if __name__ == '__main__':
     GPIO.setmode(GPIO.BOARD)
