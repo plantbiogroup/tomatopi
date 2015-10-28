@@ -35,6 +35,7 @@
 # The board might go into sleep mode if all 8 relays
 # are activated.  Hence the "max_relay" parameter
 import RPi.GPIO as GPIO
+import ConfigParser
 
 
 def get_desired(relay_num):
@@ -64,8 +65,11 @@ def set_pin(relay_num, desired):
         print "Error: unrecognized relay mode: %s" % (desired)
 
 
+Config = ConfigParser.ConfigParser()
+Config.read('/usr/local/bin/tomato.ini')
+
 desired_relay_file = '/tmp/desired_relay'
-max_relay = Config.get('relays', 'max_relay')
+max_relay = int(Config.get('relays', 'max_relay'))
 
 if __name__ == '__main__':
     GPIO.setmode(GPIO.BOARD)

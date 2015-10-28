@@ -12,6 +12,7 @@ import sys
 import urllib
 import datetime
 import time
+import ConfigParser
 
 outbuf = StringIO.StringIO()
 
@@ -136,10 +137,10 @@ desired_co2_file = Config.get('files', 'desired_co2_file')
 desired_relay_file = Config.get('files', 'desired_relay_file')
 desired_light_file = Config.get('files', 'desired_light_file')
 
-max_relay = Config.get('relays', 'max_relay')
+max_relay = int(Config.get('relays', 'max_relay'))
 
 endpoint = Config.get('server', 'endpoint')
-curl_timeout_ms = Config.get('server', 'curl_timeout_ms')
+curl_timeout_ms = int(Config.get('server', 'curl_timeout_ms'))
 
 if __name__ ==  '__main__':
     report_measurements(endpoint)
