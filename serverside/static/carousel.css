@@ -5,6 +5,7 @@
 body {
   padding-bottom: 40px;
   color: #5a5a5a;
+  background-color : #fff;
 }
 
 
@@ -32,7 +33,11 @@ body {
 .navbar-wrapper .navbar .container {
   width: auto;
 }
-
+.navbar .navbar-nav{
+float: right;
+    text-align: right;
+margin: 12px 0 0 0;
+}
 
 /* CUSTOMIZE THE CAROUSEL
  * -------------------------------------------------- */
@@ -63,7 +68,9 @@ body {
 
 /* MARKETING CONTENT
  * -------------------------------------------------- */
-
+.container .marketing {
+ font-color : #000;
+}
 /* Center align the text within the three columns below the carousel */
 .marketing .col-lg-4 {
   margin-bottom: 20px;
