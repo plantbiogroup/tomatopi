@@ -312,9 +312,11 @@ def biodome():
 
     dailyvaldir = 'static/daily/'
     dailyvals = [ f for f in listdir(dailyvaldir) if isfile(join(dailyvaldir,f)) ]
+    dailyvals.reverse()
 
     weeklyvaldir = 'static/weekly/'
     weeklyvals = [ f for f in listdir(weeklyvaldir) if isfile(join(weeklyvaldir,f)) ]
+    weeklyvals.reverse()
 
     return render_template('biodome.html',
                            defaultlight_on=defaultlight_on,
