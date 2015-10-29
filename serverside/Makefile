@@ -1,6 +1,6 @@
 CRONS=/etc/cron.d/plothourlypart \
       /etc/cron.d/plotdailypart \
-      /home/ec2-user/restart \
+      /usr/local/bin/restart \
       /usr/local/bin/plothourly \
       /usr/local/bin/plotdaily
 
@@ -28,6 +28,11 @@ uninstall:
 	sudo chown root.root $@
 
 /usr/local/bin/plothourly: etc/plothourly
+	sudo cp $^ $@
+	sudo chmod 755 $@
+	sudo chown root.root $@
+
+/usr/local/bin/restart: etc/restart
 	sudo cp $^ $@
 	sudo chmod 755 $@
 	sudo chown root.root $@
