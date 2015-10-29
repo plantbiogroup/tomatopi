@@ -36,7 +36,7 @@
 # are activated.  Hence the "max_relay" parameter
 import RPi.GPIO as GPIO
 import ConfigParser
-
+import time
 
 def get_desired(relay_num):
     if relay_num < 1 or relay_num > max_relay:
@@ -63,7 +63,11 @@ def set_pin(relay_num, desired):
         GPIO.output(pin, GPIO.HIGH)
     else:
         print "Error: unrecognized relay mode: %s" % (desired)
-
+    try:
+        rest_time = int(Config.get('relays', 'rest_time'))
+        time.sleep(rest_time)   # Give the relays time to recharge
+    except:
+        pass
 
 Config = ConfigParser.ConfigParser()
 Config.read('/usr/local/bin/tomato.ini')

@@ -310,13 +310,19 @@ def biodome():
     else:
         file = "/static/default.png"
 
-    dailyvaldir = 'static/daily/'
-    dailyvals = [ f for f in listdir(dailyvaldir) if isfile(join(dailyvaldir,f)) ]
-    dailyvals.reverse()
+    try:
+        dailyvaldir = 'static/daily/'
+        dailyvals = [ f for f in listdir(dailyvaldir) if isfile(join(dailyvaldir,f)) ]
+        dailyvals.reverse()
+    except:
+        dailyvals = None
 
-    weeklyvaldir = 'static/weekly/'
-    weeklyvals = [ f for f in listdir(weeklyvaldir) if isfile(join(weeklyvaldir,f)) ]
-    weeklyvals.reverse()
+    try:
+        weeklyvaldir = 'static/weekly/'
+        weeklyvals = [ f for f in listdir(weeklyvaldir) if isfile(join(weeklyvaldir,f)) ]
+        weeklyvals.reverse()
+    except:
+        weeklyvals = None
 
     return render_template('biodome.html',
                            defaultlight_on=defaultlight_on,
