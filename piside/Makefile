@@ -72,6 +72,8 @@ BINS=/usr/local/bin/analyze \
 	- sudo chown root.root $@
 
 install: $(BINS)
+	apt-get install python-pycurl
+	pip install RPi
 
 uninstall:
 	- sudo rm $(BINS)
