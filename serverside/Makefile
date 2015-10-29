@@ -1,5 +1,6 @@
 CRONS=/etc/cron.d/plothourlypart \
       /etc/cron.d/plotdailypart \
+      /home/ec2-user/restart \
       /usr/local/bin/plothourly \
       /usr/local/bin/plotdaily
 
