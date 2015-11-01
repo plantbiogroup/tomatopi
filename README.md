@@ -140,3 +140,5 @@ https://github.com/skiwithpete/relaypi/blob/master/8port/script5.py
 http://hortsci.ashspublications.org/content/43/7/1951.full
 
 http://sourceforge.net/p/raspberry-gpio-python/wiki/BasicUsage/
+
+https://learn.adafruit.com/downloads/pdf/reading-a-analog-in-and-controlling-audio-volume-with-the-raspberry-pi.pdf
