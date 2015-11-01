@@ -1,0 +1,73 @@
+/* CSS */
+table.pic {
+    border-spacing: 1;
+    }
+    table.pic td {
+    padding: 25px 20px;
+    border: 4px solid #cccccc;
+    }
+    table.pic tr:nth-child(odd) {
+    background-color: #f2f2f2;
+        }
+
+    table.pic div {
+        display:table-cell; 
+        vertical-align:middle;
+    }
+
+/* we need only one class called fady or whatever, which we will later apply to our images. we will first declare this class in normal state and adjust its properties like setting the opacity [read transparency] of images and later the transition - a nice CSS3 feature */
+
+.fady
+{
+opacity:0.8;
+
+filter: alpha(opacity=80); /* for Internet explorer */
+
+-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(opacity=80)"; /* for IE8 */
+
+-webkit-transition: all .5s ease-in-out;
+
+/* for Chrome & Safari - the transition when the mouse goes away from over the image */
+
+transition: all .5s ease-in-out; /* standard CSS3 transition code */
+
+-moz-transition: all .5s ease-in-out; /* transition effect for Firefox */
+
+-ms-transition: all .5s ease-in-out; /* transition effect for IE */
+
+-webkit-transform: scale(1);
+
+/* the image is scaled down to its original size when in normal state */
+
+-moz-transform: scale(1);
+
+-ms-transform: scale(1);
+
+z-index: 0; /* ensures that the image in normal mode does not overlap the hovered image */
+}
+
+/* Now here is the magic trick. we define the same class but in the 'hover' state of the mouse. That is, when mouse hovers upon the image? we can achieve a Lightbox type effect with this */
+
+.fady:hover
+{
+opacity:1;
+
+/* so in the line above, we are telling browser that when the mouse is hovered, the image should look bright, creating a nice effect which makes it distinguished from other images. Copy all the relevant compatible code for other browsers from the first declaration of this class and change the values. */
+
+-webkit-transition: all .5s ease-in-out;
+transition: all .5s ease-in-out;
+-moz-transition: all .5s ease-in-out;
+-ms-transition: all .5s ease-in-out;
+
+/* In the lines above, we are telling every browser to do a smooth transition of the image in 1/2 of a second */
+
+-webkit-transform: scale(2.0);
+-moz-transform: scale(2.0);
+-ms-transform: scale(2.0);
+
+/* In these lines we are telling the browser to scale the hovered image to 200% times its original size, so as to create a nice Lightbox like effect */
+z-index: 1; /* this line ensures that the hovered image remains at top */
+
+}
+
+
