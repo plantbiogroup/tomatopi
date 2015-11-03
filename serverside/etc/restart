@@ -1,4 +1,5 @@
 #!/bin/bash
 
 sudo killall /bin/python
-sudo nohup /home/ec2-user/tomatopi/serverside/phytonaut.py &
+cd /home/ec2-user/tomatopi/serverside
+sudo nohup ./phytonaut.py &
