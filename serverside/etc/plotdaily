@@ -4,7 +4,7 @@
 P=/home/ec2-user/tomatopi/serverside
 # P=/home/jarl/ws/plantbiogroup/tomatopi/serverside
 
-NAME=`date +%Ywk%V`
+NAME=`date --date='TZ="America/Los_Angeles" now' +%Ywk%V`
 
 plot_graph()
 {

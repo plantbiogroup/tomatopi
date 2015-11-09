@@ -14,12 +14,12 @@ uninstall:
 
 /etc/cron.d/plothourlypart: etc/plothourlypart
 	sudo cp $^ $@
-	sudo chmod 755 $@
+	sudo chmod 644 $@
 	sudo chown root.root $@
 
 /etc/cron.d/plotdailypart: etc/plotdailypart
 	sudo cp $^ $@
-	sudo chmod 755 $@
+	sudo chmod 644 $@
 	sudo chown root.root $@
 
 /usr/local/bin/plotdaily: etc/plotdaily

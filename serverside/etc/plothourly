@@ -4,12 +4,12 @@
 P=/home/ec2-user/tomatopi/serverside
 # P=/home/jarl/ws/plantbiogroup/tomatopi/serverside
 
-NAME=`date +%Y-%m-%d`
+NAME=`date --date='TZ="America/Los_Angeles" now' +%Y-%m-%d`
 
 plot_graph()
 {
     mkdir -p ${P}/static/${1}/
-    find ${P}/static/${1}/ -type f -mtime +8 -delete
+    find ${P}/static/${1}/ -type f -mtime +3 -delete
     cat<<-EOF | gnuplot
 	set xdata time
 	set timefmt "${TIMEFMT}"
