@@ -32,3 +32,10 @@ def get_relay_state():
     relay_file = config.get('relays', 'relay_file')
     with open(relay_file, 'r') as f:
         return [get_bool(val.strip()) for val in f.readline().split(',') ]
+
+def set_relay_state(state):
+    relay_file = config.get('relays', 'relay_file')
+    with open(relay_file, 'w') as f:
+        f.write("%s" % state[0])
+        for s in state[1:]:
+            f.write(",%s" % s)
