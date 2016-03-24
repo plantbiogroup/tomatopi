@@ -16,68 +16,13 @@
 #                minute) activities.  Usefull for
 #                lighting and heating.
 # off        -- flipps the relay to off.
-# <a number> -- a number between 0 and 6000
-#               indicating how many milli seconds
-#               the relay will be flipped to on.
-#               *This is usefull for things that need
-#                bursts, like CO2 flows from
-#                preasurized containers.
-#
-# This board is configured with 8 relays, and the
-# wiring to the Raspberry Pi B+ header is:
-#
-# relay number         1   2   3   4   5   6   7   8
-#                      |   |   |   |   |   |   |   |
-#                      v   v   v   v   v   v   v   v
-# GPIO board pin      12  16  18  22  32  38  37  35
-#
-#
-# The board might go into sleep mode if all 8 relays
-# are activated.  Hence the "max_relay" parameter
-import RPi.GPIO as GPIO
 import ConfigParser
-import time
-
-def get_desired(relay_num):
-    if relay_num < 1 or relay_num > max_relay:
-        return 'off'
-    try:
-        with open('%s%d' % (desired_relay_file, relay_num), 'r') as f:
-            val=f.read().strip()
-    except:
-        val = 'off'
-    return val
-
-def set_pin(relay_num, desired):
-    ###         1   2   3   4   5   6   7   8
-    ###         |   |   |   |   |   |   |   |
-    ###         v   v   v   v   v   v   v   v
-    pinlist = [12, 16, 18, 22, 32, 38, 37, 35]
-    if relay_num < 1 or relay_num > max_relay:
-        return None
-    pin = pinlist[relay_num-1]
-    GPIO.setup(pin, GPIO.OUT)
-    if desired == 'off':
-        GPIO.output(pin, GPIO.LOW)
-    elif desired == 'on':
-        GPIO.output(pin, GPIO.HIGH)
-    else:
-        print "Error: unrecognized relay mode: %s" % (desired)
-    try:
-        rest_time = int(Config.get('relays', 'rest_time'))
-        time.sleep(rest_time)   # Give the relays time to recharge
-    except:
-        pass
-
-Config = ConfigParser.ConfigParser()
-Config.read('/usr/local/bin/tomato.ini')
-
-desired_relay_file = '/tmp/desired_relay'
-max_relay = int(Config.get('relays', 'max_relay'))
+import Relay
 
 if __name__ == '__main__':
-    GPIO.setmode(GPIO.BOARD)
-    GPIO.setwarnings(False)
+    pinList = Relay.get_pinlist()
+    state = Relay.get_relay_state()
+    Relay.relay_init(pinList)
 
-    for relay in range(1,max_relay+1):
-        set_pin(relay, get_desired(relay))
+    for i in range(0, len(pinList)):
+        Relay.set_pin(pinList[i], state[i])

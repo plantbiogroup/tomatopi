@@ -2,21 +2,11 @@
 import RPi.GPIO as GPIO
 import time
 import sys
-
-#GPIO.setmode(GPIO.BCM)
-GPIO.setmode(GPIO.BOARD)
-
-# init list with pin numbers                                                                                        
-
-#pinList = [2, 3, 4, 17, 27, 22, 10, 9]
-pinList = [12, 16, 18, 22, 32, 38, 37, 35]
+import Relay
 
 if __name__ == '__main__':
-    if int(sys.argv[1]) >= 1 and int(sys.argv[1]) <= 4 :
-        i = pinList[int(sys.argv[1])-1]
-    if sys.argv[2] == 'on':
-        GPIO.setup(i, GPIO.OUT)
-        GPIO.output(i, GPIO.HIGH)
-    if sys.argv[2] == 'off':
-        GPIO.setup(i, GPIO.OUT)
-        GPIO.output(i, GPIO.LOW)
+    pinList = Relay.get_pinlist()
+    Relay.relay_init(pinList)
+
+    i = pinList[int(sys.argv[1])-1]
+    Relay.set_pin(i, sys.argv[2])
